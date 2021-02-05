@@ -1,10 +1,10 @@
 %\usepackage[colorlinks]{hyperref} % colored hyperlink
+\usepackage{adjustbox}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel} % traduction
-\usepackage[usenames,svgnames,dvipsnames]{xcolor}
 %\usepackage{bookmark} 
 \usepackage{booktabs} % beautiful tables
 \usepackage[thicklines]{cancel} % cancel terms in equation
@@ -13,8 +13,10 @@
 \usepackage{framed} % box around text
 \usepackage{fancyhdr} % header
 \usepackage{fancyvrb}
+\usepackage{lipsum}
 \usepackage{mathtools}
 \usepackage[parfill]{parskip}
+\usepackage{placeins}
 \usepackage{pgfplots} % plot in tikz
 \usepackage[arrowdel]{physics} % physics helpers
 \usepackage{setspace}
@@ -25,7 +27,8 @@
 \usepackage{tkz-euclide}
 \usepackage{tikz-3dplot}
 \usepackage{units} % Non-stacked fractions and better unit spacing
-\usepackage{xspace} % prints a trailing space in a smart way.
+\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+%\usepackage{xspace} % prints a trailing space in a smart way.
 
 \usetikzlibrary{calc,patterns,angles,quotes}
 
@@ -42,6 +45,10 @@
 \usepackage[marginparwidth=2cm]{geometry}
 \geometry{
 	paper=a4paper,
+	left=23mm,
+	right=13mm,
+	top=35mm,
+	columnsep=15pt,
 	inner=2.0cm,
 	outer=3.0cm,
 	bindingoffset=.5cm, 
