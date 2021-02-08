@@ -1,47 +1,50 @@
 %\usepackage[colorlinks]{hyperref} % colored hyperlink
-\usepackage{adjustbox}
+%\usepackage{adjustbox}
 %\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage[T1]{fontenc}
-\usepackage[french]{babel} % traduction
-\usepackage{blindtext}
+%\usepackage{amssymb}
+%\usepackage{amsthm}
+%\usepackage[T1]{fontenc}
+%\usepackage[french]{babel} % traduction
+%\usepackage{blindtext}
 %\usepackage{bookmark} 
-\usepackage{booktabs} % beautiful tables
-\usepackage[thicklines]{cancel} % cancel terms in equation
-\usepackage{color}
-\usepackage{enumerate}
-\usepackage{framed} % box around text
+%\usepackage{booktabs} % beautiful tables
+%\usepackage[thicklines]{cancel} % cancel terms in equation
+%\usepackage{color}
+\usepackage{csquotes}
+%\usepackage{enumerate}
+%\usepackage{framed} % box around text
 %\usepackage{fancyhdr} % header
-\usepackage{fancyvrb}
+%\usepackage{fancyvrb}
 \usepackage{lipsum}
-\usepackage{mathtools}
-\usepackage[parfill]{parskip}
-\usepackage{placeins}
-\usepackage{pgfplots} % plot in tikz
+%\usepackage{mathtools}
+%\usepackage[parfill]{parskip}
+%\usepackage{placeins}
+%\usepackage{pgfplots} % plot in tikz
 \usepackage[arrowdel]{physics} % physics helpers
-\usepackage{setspace}
-\usepackage{siunitx}
-\usepackage{silence} % silence warnings
-\usepackage{systeme} % system of equations
+%\usepackage{setspace}
+%\usepackage{siunitx}
+%\usepackage{silence} % silence warnings
+%\usepackage{systeme} % system of equations
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage{tikz-3dplot}
 \usepackage{units} % Non-stacked fractions and better unit spacing
-\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
 %\usepackage{xspace} % prints a trailing space in a smart way.
+\usepackage[backend=biber,style=apa,autocite=inline]{biblatex}
+\DeclareLanguageMapping{french}{french-apa}
 
-\usetikzlibrary{calc,patterns,angles,quotes}
+% \usetikzlibrary{calc,patterns,angles,quotes}
 
-\tikzset{circ/.style = {fill, circle, inner sep = 0, minimum size = 3}}
-\tikzset{scirc/.style = {fill, circle, inner sep = 0, minimum size = 1.5}}
-\tikzset{mstate/.style={circle, draw, blue, text=black, minimum width=0.7cm}}
+% \tikzset{circ/.style = {fill, circle, inner sep = 0, minimum size = 3}}
+% \tikzset{scirc/.style = {fill, circle, inner sep = 0, minimum size = 1.5}}
+% \tikzset{mstate/.style={circle, draw, blue, text=black, minimum width=0.7cm}}
 
 \usepackage{enumitem}
 \setlist{nosep,after=\vspace{\baselineskip}}
 
-\pgfplotsset{compat=1.12}
-\sisetup{locale = FR}
+%\pgfplotsset{compat=1.12}
+%\sisetup{locale = FR}
 
 % \usepackage{graphicx}
 % \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
@@ -71,7 +74,7 @@
 \setlength{\jot}{7pt}
 
 % Filter warnings issued by package biblatex starting with "Patching footnotes failed"
-\WarningFilter{biblatex}{Patching footnotes failed}
+%\WarningFilter{biblatex}{Patching footnotes failed}
 
 %----------------------
 %	COMMANDS
@@ -88,7 +91,7 @@
 \newcommand{\vd}[1]{\dot{\va{#1}}}
 \newcommand{\vdd}[1]{\ddot{\va{#1}}}
 
-% norm
+% big norm
 \newcommand{\bignorm}[1]{\left\lVert#1\right\rVert}
 
 % prints an asterisk that takes up no horizontal space.
@@ -100,6 +103,6 @@
 \newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
 
 % cancel terms with color
-\newcommand{\ccancel}[2]{\renewcommand{\CancelColor}{\color{#2}}\bcancel{#1}}
+%\newcommand{\ccancel}[2]{\renewcommand{\CancelColor}{\color{#2}}\bcancel{#1}}
 
 \renewcommand*\contentsname{Table des matières}

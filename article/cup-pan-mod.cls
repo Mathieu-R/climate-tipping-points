@@ -1,4 +1,4 @@
-\ProvidesClass{cup-pan}[2019/05/22 Cambridge University Press, Political Analysis submission template v1.0]
+\ProvidesClass{cup-pan-mod}[2019/05/22 Cambridge University Press, Political Analysis submission template v1.0]
 \newif\if@suppmat\@suppmattrue
 \DeclareOption{nosupp}{\@suppmatfalse}
 \ProcessOptions\relax
@@ -16,6 +16,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage[style]{abstract}
 \RequirePackage[marginal]{footmisc}
+\RequirePackage[french]{babel}
 \RequirePackage{caption,subcaption}
 \RequirePackage{enumitem}
 \RequirePackage{authblk}
@@ -103,17 +104,17 @@
   \textcolor{PANMaroon}{PA}
   \end{textblock*}  
 }
-\newcommand{\@insert@metadata}{%
-  \begin{textblock*}{3.3cm}[0,1](1cm,\dimexpr\paperheight-\Gm@bmargin\relax)
-  \scriptsize\raggedright%
-  \setlength{\parskip}{\baselineskip}%
-  \setlength{\parindent}{\z@}%
-  \more@metadata\par
-  \end{textblock*}
-}
+% \newcommand{\@insert@metadata}{%
+%   \begin{textblock*}{3.3cm}[0,1](1cm,\dimexpr\paperheight-\Gm@bmargin\relax)
+%   \scriptsize\raggedright%
+%   \setlength{\parskip}{\baselineskip}%
+%   \setlength{\parindent}{\z@}%
+%   \more@metadata\par
+%   \end{textblock*}
+% }
 \renewcommand{\@maketitle}{%
   %\@cover@logo%
-  \@insert@metadata%
+  %\@insert@metadata%
   \noindent\begin{minipage}{0.9\linewidth}
   \raggedright\setstretch{1.0}
   {\LARGE\bfseries\@title\par}
@@ -184,19 +185,19 @@
 \newcommand{\thead}[1]{\bfseries #1\rule[-1.2ex]{0pt}{2em}}
 \renewcommand{\arraystretch}{1.2}
 
-\RequirePackage[backend=biber,authordate,giveninits=true,uniquename=mininit,natbib]{biblatex-chicago}
-\xpatchbibmacro{name:andothers}{%
-  \bibstring{andothers}%
-}{%
-  \bibstring[\emph]{andothers}%
-}{}{}
+% \RequirePackage[backend=biber,authordate,giveninits=true,uniquename=mininit,natbib]{biblatex-chicago}
+% \xpatchbibmacro{name:andothers}{%
+%   \bibstring{andothers}%
+% }{%
+%   \bibstring[\emph]{andothers}%
+% }{}{}
 
 \newcommand{\insert@supplmat}{\section*{Supplementary Material}(This is dummy text) For supplementary material accompanying this paper, please visit \url{https://doi.org/10.1017/pan.xxxx.xx.}}
 \if@suppmat
   \xpretocmd{\printbibliography}{\insert@supplmat}{}{}
   \AtBeginEnvironment{thebibliography}{\insert@supplmat}
 \fi
-\renewcommand{\bibfont}{\small}
+%\renewcommand{\bibfont}{\small}
 
 \PassOptionsToPackage{hyphens}{url}
 \RequirePackage{hyperref}

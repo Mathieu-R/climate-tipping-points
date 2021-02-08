@@ -3,6 +3,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.DS_Store
+
+# Latex extensions
+*.aux 
+*.bbl 
+*.bcf
+*.fdb_latexmk
+*.fls
+*.out
+*.run.xml
+*.synctex.gz
+
 # C extensions
 *.so
 

@@ -1,8 +1,9 @@
-\documentclass[a4paper, 11pt]{cup-pan}
-% add "no-supp" to documentclass options if you do not want 
+\documentclass[nosupp]{cup-pan-mod}
+% add "nosupp" to documentclass options if you do not want 
 % "supplementary materials" section at the end of the article.
 
 \input{header.tex}
+%\usepackage{lipsum}
 
 \title {Points de cascade en climatologie : bifurcation de Fold-Hopf}
 
@@ -10,8 +11,8 @@
 
 \affil[1] {Université Catholique de Louvain, Ecole de Physique, Louvain-La-Neuve, Belgique}
 
-\def\npromotor {Michel Crucifix}
-\def\ndate {\today}
+% \def\npromotor {Michel Crucifix}
+% \def\ndate {\today}
 
 %% Université Catholique de Louvain %%
 %% Faculté des Sciences %%
@@ -24,11 +25,15 @@
 \begin{document}
 \maketitle
 
-\begin{abstract}
-  \lipsum[1]
-  \keywords{Points de cascade, Bifurcation Fold-Hopf}
-\end{abstract}
+\input{sections/section1-abstract.tex}
+\input{sections/section2-intro.tex}
+\input{sections/section3-methodo.tex}
+\input{sections/section4-results.tex}
 
+%\bibliographystyle{agu}
+%\bibliography{references}
+%\nocite{*}
 \printbibliography
+\nocite{*}
 
 \end{document}

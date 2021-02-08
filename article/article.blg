@@ -1,0 +1,17 @@
+[0] Config.pm:304> INFO - This is Biber 2.14
+[0] Config.pm:307> INFO - Logfile is 'article.blg'
+[108] biber-darwin:322> INFO - === Lun fév  8, 2021, 22:09:02
+[134] Biber.pm:415> INFO - Reading 'article.bcf'
+[295] Biber.pm:940> INFO - Using all citekeys in bib section 0
+[319] Biber.pm:4256> INFO - Processing section 0
+[320] Utils.pm:75> INFO - Globbing data source 'references.bib'
+[321] Utils.pm:91> INFO - Globbed data source 'references.bib' to references.bib
+[334] Biber.pm:4455> INFO - Looking for bibtex format file 'references.bib' for section 0
+[335] bibtex.pm:1653> INFO - LaTeX decoding ...
+[339] bibtex.pm:1471> INFO - Found BibTeX data source 'references.bib'
+[380] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[380] UCollate.pm:68> INFO - Overriding locale 'fr-FR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[380] Biber.pm:4084> INFO - Sorting list 'apa/global//global/global' of type 'entry' with template 'apa' and locale 'fr-FR'
+[380] Biber.pm:4090> INFO - No sort tailoring available for locale 'fr-FR'
+[390] bbl.pm:652> INFO - Writing 'article.bbl' with encoding 'UTF-8'
+[391] bbl.pm:755> INFO - Output to article.bbl
