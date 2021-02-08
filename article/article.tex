@@ -1,13 +1,16 @@
-\documentclass[a4paper, 11pt, twoside]{revtex4-1}
+\documentclass[a4paper, 11pt]{cup-pan}
+% add "no-supp" to documentclass options if you do not want 
+% "supplementary materials" section at the end of the article.
 
-\def\ntitle {Points de cascade en climatologie : bifurcation de Fold-Hopf}
+\input{header.tex}
 
-\def\nauthor {Mathieu Rousseau}
+\title {Points de cascade en climatologie : bifurcation de Fold-Hopf}
 
-\def\naffiliation {Université Catholique de Louvain, Ecole de Physique, Louvain-La-Neuve, Belgique}
+\author[1] {Mathieu Rousseau}
+
+\affil[1] {Université Catholique de Louvain, Ecole de Physique, Louvain-La-Neuve, Belgique}
 
 \def\npromotor {Michel Crucifix}
-
 \def\ndate {\today}
 
 %% Université Catholique de Louvain %%
@@ -15,17 +18,17 @@
 %% Ecole de Physique %%
 %% 2020-2021 %%
 
-\input{header.tex}
+\runningauthor{Rousseau}
+\addbibresource{references.bib}
 
 \begin{document}
-
-\input{preamble.tex}
 \maketitle
 
 \begin{abstract}
   \lipsum[1]
+  \keywords{Points de cascade, Bifurcation Fold-Hopf}
 \end{abstract}
 
-\appendix
+\printbibliography
 
 \end{document}
