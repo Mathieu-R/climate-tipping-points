@@ -69,7 +69,7 @@
   \RequirePackage[utf8]{inputenc}
   \RequirePackage[T1]{fontenc}
 \fi
-\RequirePackage[default]{sourcesanspro}
+%\RequirePackage[default]{sourcesanspro}
 \RequirePackage[nosymbolsc,slantedGreek]{newtxsf}
 
 \setstretch{1.15}
