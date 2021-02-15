@@ -11,3 +11,8 @@ c2 = 1
 x0 = 0
 y0 = 0
 z0 = 0
+
+# time range
+t_init = 0
+t_fin = 1000
+time_step = 10
