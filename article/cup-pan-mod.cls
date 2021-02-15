@@ -70,7 +70,7 @@
   \RequirePackage[T1]{fontenc}
 \fi
 %\RequirePackage[default]{sourcesanspro}
-\RequirePackage[nosymbolsc,slantedGreek]{newtxsf}
+%\RequirePackage[nosymbolsc,slantedGreek]{newtxsf}
 
 \setstretch{1.15}
 
@@ -78,7 +78,7 @@
 \geometry{paperwidth=8.25in,paperheight=11in,
   left=2.1cm,top=1.75cm,bottom=2.4cm,right=2.1cm,
   footskip=1.5\baselineskip,footnotesep=\baselineskip,headheight=21\p@,headsep=\baselineskip}
-  
+
 \newcommand{\runningauthor}[1]{\def\@runningauthor{#1}}
 \newcommand{\authornote}[1]{\def\@authornote{#1}}
 \newcommand{\corrauthor}[1]{\def\@corrauthor{#1}}
@@ -102,7 +102,7 @@
   \begin{textblock*}{4cm}[1,0](\dimexpr\Gm@lmargin-1cm,\Gm@tmargin)
   \fontsize{60\p@}{60\p@}\selectfont\raggedleft%
   \textcolor{PANMaroon}{PA}
-  \end{textblock*}  
+  \end{textblock*}
 }
 % \newcommand{\@insert@metadata}{%
 %   \begin{textblock*}{3.3cm}[0,1](1cm,\dimexpr\paperheight-\Gm@bmargin\relax)

@@ -2,20 +2,20 @@
 
 Plusieurs sous-systèmes composent le système climatique. Ces systèmes se retrouvent couplés à travers divers flux (quantité de mouvement, masse, chaleur,\dots).
 
-Certains sous-sytèmes sont en quelque sorte un état de référence pour l'évolution d'autres sous-systèmes. D'ailleurs dans le système climatique, plusieurs points de cascade ont été identifiés (\cite{Lenton_Held_Kriegler_Hall_Lucht_Rahmstorf_Schellnhuber_2008}). 
+Certains sous-sytèmes sont en quelque sorte un état de référence pour l'évolution d'autres sous-systèmes. D'ailleurs dans le système climatique, plusieurs points de cascade ont été identifiés (\cite{Lenton_Held_Kriegler_Hall_Lucht_Rahmstorf_Schellnhuber_2008}).
 
 Lorsqu'un sous-système est soumis à une transition, l'état de référence d'un autre sous-système se retrouve modifier ce qui peut provoquer une transition de ce dernier sous-système. On appelle cela un effet domino.
 
 %% EXPLIQUER CONCRETEMENT CE QUI SE PASSE DANS LE SYSTEME CLIMATIQUE, DONNER DES EXEMPLES.
 
-L'objectif de cet article est d'étudier la bifurcation \emph{Fold-Hopf}. Cette dernière est constituée d'un "leading system" qui à une bifurcation de type \emph{point de selle} et d'un "following system" qui à une bifurcation de type \emph{hopf}.
+L'objectif de cet article est d'étudier la bifurcation \emph{Fold-Hopf}. Cette dernière apparait dans un système d'équations différentielles ordinaires (EDOs) constitué à la fois d'une EDO à 1 dimension que l'on appellera système primaire et d'un sous-système d'EDOs à 2 dimensions que l'on appellera système secondaire. De ce premier système surgit une bifurcation de type \emph{"Fold"} tandis que du second système surgit une bifurcation de type \emph{"Hopf"}.
 
 \begin{equation}
   \begin{cases}
-    \dot{x} = a_1x^3 + a_2x + \phi \quad, \textit{leading system} \\
-    \dot{y} = b_1z + b_2(\gamma(x) - (y^2 + z^2))y \\
+    \dot{x} = a_1x^3 + a_2x + \phi \quad, \textit{système primaire} \\
+    \dot{y} = b_1z + b_2(\gamma(x) - (y^2 + z^2))y \quad, \textit{système secondaire} \\
     \dot{z} = c_1y + c_2(\gamma(x) - (y^2 + z^2))z
   \end{cases}
 \end{equation}
 
-Si l'on fait lentement varier $\phi$, le "leading system"  
+Si l'on fait lentement varier $\phi$, le "leading system"

@@ -6,3 +6,8 @@ a2 = 1
 b1 = b2 = 1
 c1 = -1
 c2 = 1
+
+# initial conditions
+x0 = 0
+y0 = 0
+z0 = 0
