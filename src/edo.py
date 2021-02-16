@@ -3,11 +3,13 @@ import numpy as np
 from constantss import (a1, a2, b1, b2, c1, c2)
 
 # x is a vector \vec{x}: [x, y, z]
-def fold_hopf(t, v, phi, gamma):
+def fold_hopf(self, t, v):
+  # increase forcing parameter
+  self.phi += 0.01
   return np.array([
-    a1 * (v[0] ** 3) + a2 * v[0] + phi,
-    b1*v[2] + b2*(gamma(v[0]) - (v[1]**2 + v[2]**2))*v[1],
-    c1*v[1] + c2*(gamma(v[0]) - (v[1]**2 + v[2]**2))*v[2]
+    a1 * (v[0] ** 3) + a2 * v[0] + self.phi,
+    b1*v[2] + b2*(self.gamma(v[0]) - (v[1]**2 + v[2]**2))*v[1],
+    c1*v[1] + c2*(self.gamma(v[0]) - (v[1]**2 + v[2]**2))*v[2]
   ])
 
 # v is a vector \vec{v}: [x, r, \theta]

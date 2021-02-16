@@ -3,4 +3,4 @@ from src.solver import solver
 
 if __name__ == "__main__":
   solve = solver()
-  solve.solve()
+  solve.rk4()

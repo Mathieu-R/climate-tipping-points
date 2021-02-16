@@ -8,11 +8,11 @@ c1 = -1
 c2 = 1
 
 # initial conditions
-x0 = 0
-y0 = 10
-z0 = 10
+x0 = 0.0
+y0 = 5.0
+z0 = 5.0
 
 # time range
 t_init = 0
-t_fin = 500
-time_step = 10
+t_fin = 200
+time_step = 0.01
