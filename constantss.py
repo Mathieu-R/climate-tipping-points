@@ -9,10 +9,10 @@ c2 = 1
 
 # initial conditions
 x0 = 0
-y0 = 0
-z0 = 0
+y0 = 10
+z0 = 10
 
 # time range
 t_init = 0
-t_fin = 1000
+t_fin = 500
 time_step = 10
