@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
-from .edo import (fold_hopf)
+from .edo import (fold_hopf, fold_hopf_polar)
 from constantss import (x0, y0, z0, t_init, t_fin, time_step)
 
 class solver():
@@ -18,7 +18,7 @@ class solver():
     # data
     self.dataset = []
     self.time_range = np.arange(t_init, t_fin + time_step, time_step)
-    self.legends = ["x", "y", "z"]
+    self.legends = ["$x$", "$r$", "$\\theta$"]
 
   # linear coupling parameter
   # proposed by Dekker et al. article
@@ -27,7 +27,7 @@ class solver():
 
   def solve(self):
     results = solve_ivp(
-      fun=fold_hopf,
+      fun=fold_hopf_polar,
       t_span=(self.t_init, self.t_fin),
       t_eval=self.time_range,
       y0=self.initial_conditions,
