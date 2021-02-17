@@ -38,6 +38,10 @@ class solver():
 
     for t in self.time_range:
       if t == self.t_fin: break # LOL
+
+      # increase forcing parameter
+      self.phi += 0.01
+
       v += (self.time_step / 6) * self.derivatives(t, v)
       self.dataset = np.append(self.dataset, [v.copy()], axis=0)
 

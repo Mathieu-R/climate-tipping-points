@@ -11,6 +11,7 @@ c2 = 1
 x0 = 0.0
 y0 = 5.0
 z0 = 5.0
+r0 = 5.0
 
 # time range
 t_init = 0
