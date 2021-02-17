@@ -17,5 +17,6 @@ regex==2020.11.13
 requests==2.25.1
 scipy==1.6.0
 six==1.15.0
+tqdm==4.56.2
 urllib3==1.26.3
 wcwidth==0.2.5

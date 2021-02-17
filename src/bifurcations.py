@@ -35,7 +35,7 @@ class bifurcations():
     initial_conditions = [r0]
     dataset = pd.DataFrame()
 
-    for phi in self.phi_range:
+    for phi in tqdm(self.phi_range):
       time_serie = []
       v = initial_conditions
       for t in self.time_range:
