@@ -13,18 +13,18 @@ from .rk4 import rk4
 class bifurcations():
   def __init__(self):
     self.phi = 0
-    self.phi_range = np.linspace(-2, 2, 100)
+    self.phi_range = np.linspace(start=-2, stop=2, num=100)
     self.time_range = np.arange(t_init, t_fin, time_step)
 
   def fold(self):
-    initial_conditions = [x0]
+    initial_conditions = np.array([x0])
     dataset = pd.DataFrame()
 
     for phi in tqdm(self.phi_range):
       time_serie = []
       v = initial_conditions
       for t in self.time_range:
-        time_serie.append(v)
+        time_serie.append(v[0])
         v += rk4(fold, time_step, t, v, phi)
 
       dataset[phi] = pd.Series(time_serie)
@@ -39,7 +39,7 @@ class bifurcations():
       time_serie = []
       v = initial_conditions
       for t in self.time_range:
-        time_serie.append(v)
+        time_serie.append(v[0])
         v += rk4(fold, time_step, t, v, phi)
 
       dataset[phi] = pd.Series(time_serie)
@@ -48,13 +48,15 @@ class bifurcations():
 
   def plot(self, dataset):
     print(dataset)
-    dataset.T.plot(
+    dataset.plot(
       figsize = (16,6),
       ylim = (-5,5),
+      xlim = (-2,2),
       legend = False,
-      colormap=colors ,
+      #colormap=colors ,
       alpha = 0.3,
       title = "Fold Bifurcation Diagram"
     )
     plt.xlabel("$\phi$")
     plt.ylabel("x")
+    plt.show()
