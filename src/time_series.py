@@ -5,7 +5,7 @@ from scipy.integrate import solve_ivp
 from .edo import fold_hopf
 from constantss import (x0, y0, z0, t_init, t_fin, time_step)
 
-class solver():
+class time_series():
   def __init__(self):
     # initial conditions
     self.initial_conditions = np.array([[x0, y0, z0]])

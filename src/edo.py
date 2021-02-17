@@ -12,7 +12,7 @@ def hopf(t, v, phi):
     phi * v[1] - (v[1] ** 3),
   ])
 
-# x is a vector \vec{x}: [x, y, z]
+# v is a vector \vec{v}: [x, y, z]
 def fold_hopf(self, t, v, gamma, phi):
   return np.array([
     a1 * (v[0] ** 3) + a2 * v[0] + phi,
