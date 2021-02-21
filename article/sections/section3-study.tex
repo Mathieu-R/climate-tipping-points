@@ -1,0 +1,13 @@
+\section{Bifurcation de fold-hopf}
+
+Cette bifurcation apparait dans un système d'équations différentielles ordinaires (EDOs) constitué à la fois d'une EDO à 1 dimension que l'on appellera système primaire et d'un sous-système d'EDOs à 2 dimensions que l'on appellera système secondaire. De ce premier système surgit une bifurcation de type \emph{"Fold"} tandis que du second système surgit une bifurcation de type \emph{"Hopf"}.
+
+\begin{equation}
+  \begin{cases}
+    \dot{x} = a_1x^3 + a_2x + \phi \quad, \textit{système primaire} \\
+    \dot{y} = b_1z + b_2(\gamma(x) - (y^2 + z^2))y \quad, \textit{système secondaire} \\
+    \dot{z} = c_1y + c_2(\gamma(x) - (y^2 + z^2))z
+  \end{cases}
+\end{equation}
+
+Alors que nous nous approchons de la valeur critique de la bifurcation ($\phi_{crit}$), une petite perturbation de ce paramètre $phi$ suffit pour basser la bifurcation et modifier considérablement, qualitativement le comportement du système. Dans le langage des systèmes dynamiques on dit qu'il y a création, suppression d'équilibres voir modification dans la nature de ces équilibres. Toutefois, dans la définition des points de bascules, il en existe certains qui sont reversibles et qui ne sont donc pas dû à des bifurcations (\cite{lenton_tipping_2008}). Nous ne considérerons pas ces derniers dans cette article.
