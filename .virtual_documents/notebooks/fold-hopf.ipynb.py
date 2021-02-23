@@ -1,6 +1,3 @@
-
-
-
 import numpy as np
 from sympy import Matrix, symbols, init_printing, solve, lambdify
 import matplotlib.pyplot as plt
@@ -8,11 +5,11 @@ import matplotlib.pyplot as plt
 init_printing()
 
 
-a1, a2, b1, b2, c1, c2, x, y, z, phi = symbols("a1 a2 b1 b2 c1 c2 x y z phi")
+a1, a2, b1, b2, c1, c2, x, y, z, gamma1, gamma2, phi = symbols("a1 a2 b1 b2 c1 c2 x y z phi")
 
 
 def gamma(x):
-    return 0.12 * x + 0.21
+    return gamma1 * x + gamma2
 
 def f1(x):
     return a1 * (x ** 3) + a2 * x + phi
