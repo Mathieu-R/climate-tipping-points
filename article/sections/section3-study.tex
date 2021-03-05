@@ -12,7 +12,92 @@ Cette bifurcation apparait dans un système d'équations différentielles ordina
 
 Alors que nous nous approchons de la valeur critique de la bifurcation que nous noterons $\phi_{crit}$, une petite perturbation du paramètre $phi$ suffit pour passer la bifurcation et modifier considérablement le comportement qualitatif du système. Dans le langage des systèmes dynamiques on dit qu'il y a création, suppression d'équilibres voir modification dans la nature de ces équilibres. Toutefois, dans la définition des points de bascules, il en existe certains qui sont reversibles et qui ne sont donc pas dû à des bifurcations (\cite{lenton_tipping_2008}). Nous ne considérerons pas ces derniers dans cet article.
 
-\subsection{Bifurcation fold}
+\subsection{Bifurcation fold} \label{sec:fold}
 
-Une bifurcation fold est une combinaison de 2 bifurcations points de selles
+Considérons la première EDO,
+\begin{equation}
+  \dot{x}(t) = a_1 x^3 + a_2 x + \phi \equiv f_{\phi}(x),  \quad a_1, a_2 \in \R
+\end{equation}
 
+Cette équation fait apparaitre une bifurcation fold qui est une combinaison de 2 bifurcations points de selles. Une bifurcation point de selle consiste en l'apparition de 2 équilibres, un stable et un instable lorsqu'on atteint une certaine valeur de $\phi$. La bifurcation fold consiste en l'apparition de 3 équilibres, 2 stable et un stable lorsque $phi$ se trouve dans une certaine intervalle induisant alors une bistabilité. Dans le cas de ce système, cette dernière se trouve dans l'intervalle
+
+\begin{equation} \label{eq:phi_c-range}
+  \phi_c < \sqrt{\frac{-4(a_2)^3}{27a_1}}, \quad a_1 < 0 < a_2
+\end{equation}
+
+et a la particularité de présenter un phénomène dit \emph{d'hystérésis} c'est à dire que le système se comporte à la fois selon la valeur courante du paramètre de forçage mais également selon son historique.
+
+% TODO : expliquer hysteresis
+
+Le système a un ou plusieurs points d'équilibres en $x = x_0$ lorsque $f_{\phi}(x_0) = 0$. On peut voir cette EDO comme la somme de 2 courbes, $f_1(x) = a_1 x^3$ et $f_2(x) = - (a_2x + \phi_c)$. Les équilibres du système correspondent aux points d'intersection de $f_1$ et $f_2$. Si l'on trace ces 2 fonctions, on remarque la création de 2 équilibres lorsque la droite $f_2$ est tangente à la fonction cubique $f_1$. On peut de par cette observation facilement repérer nos points d'équilibres
+
+\begin{equation}
+  f_{\phi_c}'(x_0) = 0 \implies x_0 = \pm \sqrt{-\frac{a_2}{3a_1}}
+\end{equation}
+
+L'analyse graphique nous montre qu'il s'agit de 2 équilibres stables. Il existe également un équilibre instable situé entre ces 2 derniers.
+Si l'on injecte cette valeur de $x_0$ dans l'équation pour la condition d'équilibre du système $f_{\phi}(x_0) = 0$, on trouve après un peu d'algèbre la condition (\ref{eq:phi_c-range}).
+
+% TODO: trouver mathématiquement l'équilibre instable x_0^(instable)
+
+On peut mieux se rendre compte de la dynamique du système en traçant son diagramme de bifurcation,
+
+% TODO: figure - fold bifurcation diagram.
+
+Lorsqu'on approche $\phi_c$ par des valeurs $\phi > \phi_c$, le système est dans un état stable. Une fois que l'on atteint $-\phi_c$ (dans le sytème climatique il pourrait s'agit d'une température critique, une concentration de CO2 critique,\dots), le système va subitement changer d'état dû à sa bistabilité afin d'atteindre un nouvel état stable. Si le paramètre de forçage continue de baisser, le système reste stable. Par contre si un quelconque phénomène arrivait à réaugmenter la valeur de $\phi$ jusqu'à la valeur $+\phi_c$, le système repasserait dans l'état stable intiale. On voit que réaugmenter la valeur du paramètre de forçage la transition critique faite ne fait pas directement repasser le système dans son état initial. Il s'agit bien là d'un phénomène d'hystérésis. Un raisonnement analogue peut être fait si l'on approche $-\phi_c$ par des valeurs $\phi < -\phi_c$. Toutefois, entre ces 2 branches stables existent une branche instable. Dès lors lorsque la valeur du paramètre de forçage se trouve dans l'intervalle critique, le système se verra dans un des 2 états dépendant des conditions initiales. Il est possible que des conditions initiales fassent que le système se situe sur la courbe instable mais du fait de la nature de cet équilibre, une micro-perturbation dans les conditions initiales amènerait le système à être attire vers une des branches stables.
+
+% TODO: expliquer hysteresis dans ce diagramme
+
+\subsection{Bifurcation hopf}
+
+Considérons les EDOs pour $\dot{y}$ et $\dot{z}$ et remplaçons le paramètre de couplage $\gamma(x)$ par un paramètre de forçage $\phi$.
+
+\begin{equation}
+  \begin{cases}
+    \dot{y} = b_1z + b_2(\phi - (y^2 + z^2))y \equiv f_1 \\
+    \dot{z} = c_1y + c_2(\phi - (y^2 + z^2))z \equiv f_2
+  \end{cases}
+\end{equation}
+
+où $b_1, b_2, c_1, c_2 \in \R$.
+
+Les points d'équilibre sont $x = 0$ et $y = 0$ si $c_1 > 0$. Nous avons également les condition $b_2c_2 < 0$ et $b_1 > 0$. Afin de trouver la nature de ces équilibres, on peut analyser les valeurs propres la matrice jacobienne $df$ au point d'équilibre $\vb{p} = (0, 0)$.
+
+Sans perte de généralité, posons $b_1 = b_2 = 1$, $c_1 = -1$ et $c_2 = 1$.
+\begin{equation}
+  df(\vb{p}) =
+  \begin{pmatrix}
+    \phi & 1 \\
+    -1 & \phi
+  \end{pmatrix}
+\end{equation}
+
+%TODO: valeurs propres
+
+Afin de mieux comprendre la façon de se comporte notre système, on peut passer en coordonnées polaires $(r, \theta)$
+\begin{equation}
+  \begin{cases}
+    \dot{r} = \phi r - r^3 \\
+    \dot{\theta} = -1
+  \end{cases}
+\end{equation}
+
+L'analyse graphique de l'équation pour $\dot{r}$ nous montre la présence d'un équilibre stable en $r = 0$ pour $\phi \leq 0$ par contre lorsque $\phi > 0$, l'équilibre en $r = 0$ devient instable et il apparait un nouvel attracteur en $r = \sqrt{\phi}$. Il y a à la fois changement dans la nature d'un équilibre et création d'un autre équilibre. On comprend donc que lorsque $phi > 0$ il apparait un cycle limite de rayon $r = \sqrt{\phi}$ ou toutes les solutions partant en dehors de ce cycle y convergent. Ce cycle limite stable apparait en une valeur de $\phi$ supérieure à celle du point d'équilibre instable. On nomme alors cette bifurcation une bifurcation de hopf \emph{supercritique}.
+
+L'équation pour $\dot{\theta}$ nous montre que les trajectoires ont un sens horloger (autour de l'origine).
+
+L'équation paramétrique de ce cycle limite est donnée par,
+\begin{equation}
+  \begin{cases}
+    y &= \sqrt{\phi} \sin(\theta_0 - t) \\
+    z &= \sqrt{\phi} \cos(\theta_0 - t)
+  \end{cases}
+\end{equation}
+
+% TODO: diagramme de bifurcation
+
+% TODO: interprétation
+
+\subsection{Bifurcation fold-hopf}
+
+Le système que nous étudions présente un mix de ces 2 bifurcations. L'équation pour $\dot{x}$ donne lieu à une bifurcation fold tel que nous l'avons vu à la section (\ref{sec:fold}). L'équation pour $\dot{y}$ et $\dot{z}$ est un peu différente dans le sens où nous avons remplacé le paramètre de forçage par un paramètre de couplage $\gamma(x)$ qui dépend donc de la première équation.

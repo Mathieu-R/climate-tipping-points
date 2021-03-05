@@ -170,7 +170,7 @@
 \appto{\footrule}{\endgroup}
 %\fancyhead[L]{\hspace*{-4cm}\Huge\color{PANMaroon}PA}
 \fancyfoot[R]{\small\thepage}
-\fancyfoot[L]{\small\emph{\@runningauthor}\enskip|\enskip\@journalname}
+\fancyfoot[L]{\small\emph{\@runningauthor}}
 \pagestyle{fancy}
 \fancypagestyle{plain}{%
   \fancyhf{}
