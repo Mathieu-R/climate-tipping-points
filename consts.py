@@ -8,12 +8,13 @@ c1 = -1
 c2 = 1
 
 # initial conditions
-x0 = 0.0
-y0 = 5.0
-z0 = 5.0
+x0 = -0.5
+y0 = 1.0
+z0 = -1.0
+
 r0 = 5.0
 
 # time range
 t_init = 0
-t_fin = 200
+t_fin = 500
 time_step = 0.01

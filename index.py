@@ -31,3 +31,4 @@ if __name__ == "__main__":
   elif (start_answer == "Bifurcation de Hopf - diagramme de bifurcation"):
     bifurcation = bifurcations()
     bifurcation.hopf()
+
