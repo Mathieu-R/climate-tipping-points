@@ -1,34 +1,33 @@
-%\usepackage{adjustbox}
 \usepackage{amsmath}
 \usepackage{amssymb}
-%\usepackage{amsthm}
+\usepackage{amsthm}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel} % traduction
+\usepackage{csquotes}
+\usepackage{lipsum}
+%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
 %\usepackage{blindtext}
 %\usepackage{bookmark}
 %\usepackage{booktabs} % beautiful tables
 %\usepackage[thicklines]{cancel} % cancel terms in equation
-\usepackage{color}
-\usepackage{csquotes}
+%\usepackage{color}
 %\usepackage{enumerate}
 %\usepackage{framed} % box around text
 %\usepackage{fancyhdr} % header
 %\usepackage{fancyvrb}
-\usepackage{lipsum}
-%\usepackage{mathtools}
-%\usepackage[parfill]{parskip}
+\usepackage{mathtools}
+\usepackage[parfill]{parskip}
 %\usepackage{placeins}
-%\usepackage{pgfplots} % plot in tikz
+\usepackage{pgfplots} % plot in tikz
 \usepackage[arrowdel]{physics} % physics helpers
 %\usepackage{setspace}
 \usepackage{siunitx}
-%\usepackage{silence} % silence warnings
+\usepackage{silence} % silence warnings
 %\usepackage{systeme} % system of equations
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage{tikz-3dplot}
 \usepackage{units} % Non-stacked fractions and better unit spacing
-%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
 %\usepackage{xspace} % prints a trailing space in a smart way.
 \usepackage[backend=biber,style=apa,autocite=inline]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
@@ -53,7 +52,11 @@
 \setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio}
 
 % colored hyperlink
-\usepackage[colorlinks, citecolor]{hyperref}
+% load hyperref at the end to avoid conflicts
+\usepackage[colorlinks]{hyperref} % colored ref
+% cleverref must be loaded after hyperref
+\usepackage{cleveref} % create ref
+%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
 
 % conditions for equations
 % https://tex.stackexchange.com/questions/95838/how-to-write-a-perfect-equation-parameters-description
