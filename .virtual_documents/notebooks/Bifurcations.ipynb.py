@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 from scipy.optimize import fsolve
@@ -126,7 +127,7 @@ time_serie.rk4()
 
 
 phi = 0
-nphi = 100
+nphi = 1000
 nguesses = 3
 phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
 
@@ -134,38 +135,48 @@ phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
 nt = int((t_fin - t_init) / time_step)
 time_mesh = np.linspace(start=t_init, stop=t_fin, num=nt)
 
+fig = plt.figure(figsize=(15,7))
+mpl.rc('font', size = 14)
+
 #def bifurcation(edo, phi_list, guess):
 #    equilibria_mesh = np.zeros((nphi), nguesses)
 #    try:
         
-    
+TRESHOLD = 10**-4   
+unstable_equ = []
+stable_equ = []
 
 def fold_bifurcation(guesses):
-    equilibria_mesh = np.zeros((nphi, nguesses))
+    global unstable_equ
+    global stable_equ
+    for phi in phi_mesh:
+        fx_set = []
+        for x in np.linspace(0,2,1000):
+            fx = a1 * (x ** 3) + a2 * x + phi
+            fx_set.append(fx)
+            # confident interval
+            if -TRESHOLD < fx < TRESHOLD:
+                # compute derivative to check the nature of equilibrium
+                dfdx = a1 * ((3 * x) ** 2) + a2
+                if dfdx > 0: 
+                    unstable_equ.append([x, phi])
+                if dfdx < 0:
+                    stable_equ.append([x, phi])
+                    
+    unstable_equ = zip(*sorted(unstable_equ, key=lambda x: x[0]))
+    unstable_equ_phi = unstable_equ[1]
+    unstable_equ_x = unstable_equ[0]
+    
+    stable_equ = zip(*sorted(stable_equ, key=lambda x: x[0])) 
+    stable_equ_phi = stable_equ[1]
+    stable_equ_x = stable_equ[0]
 
-    # for each phi
-    for phi_index in range(0, nphi-1):
-
-      # find the equilibria of our system
-      
-      equilibria = []
-      new_guesses = []
-      
-      # look for some equilibria
-      for guess in guesses:  
-          equilibrium = fsolve(func=fold, x0=[guess], args=(phi_mesh[phi_index]))
-          equilibria.append(equilibrium[0])
-          new_guesses.append(equilibrium)
-      
-      guesses = new_guesses
-      np.array([equilibria])
-      # add to the mesh
-      #print(np.shape(equilibria_mesh[phi_index]), np.shape(equilibria))
-        
-      equilibria_mesh[phi_index] = np.array([equilibria])
-
-    plot(dataset=equilibria_mesh.copy(), ylabel="x")
-
+    plt.subplot(2, 1, 1)
+    plt.plot(unstable_equ_phi, unstable_equ_x, linestyle="dashdot", label="ligne instable")
+    plt.plot(stable_equ_phi, stable_equ_x, label="ligne stable")
+    plt.text(0.51, 1.4, 'fig. 5', fontsize=18)
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    
 def fold_hopf_bifurcation():
     equilibria_mesh = np.zeros((nphi, nguesses))
 
@@ -210,11 +221,74 @@ def plot(dataset, ylabel):
 guesses = np.linspace(start=-3, stop=3, num=nguesses)
     
 fold_bifurcation(guesses)
-hopf_bifurcation()
-fold_hopf_bifurcation()
+#hopf_bifurcation()
+#fold_hopf_bifurcation()
 
 
+#define parameters and predefine array variables:
+h = 1.; b = 1.; p = 12; r = 0.6; A=[]; XA=[]
 
+#vary parameter a in a range of (0.4,0.9):
+a = 0.5
+
+fig = plt.figure(figsize=(15,7))
+mpl.rc('font', size = 14)
+
+EX1 = []; EX2 = []; EX3 = []
+
+a = 0.5
+while a <= 0.9:
+    GX = []; X = []
+    #calculate g(x) for parameter t in a range of (0,2):
+    for x in np.linspace(0,2,1000):
+        gx = a-b*x + (r*x**p)/(x**p + h**p)
+        GX.append(gx); X.append(x)
+        if -10**-4 < gx < 10**-4:
+            #calculate g'(x) (= dg(x)/dx) to "check" stability:
+            Dgx = -b+(r*p*x**(p-1)*h**p)/((x**p + h**p)**2)
+            #write x-coordinate of extremum and depending value of parameter a in an array:
+            if Dgx > 0: EX2.append([x,a])      #array for unstable extrema
+            if Dgx < 0:                        
+                if x < 1: EX1.append([x,a])    #array for stable extrema with x<1
+                if x > 1: EX3.append([x,a])    #array for stable extrema with x>1
+    #plot f(x) for specific values of a:
+    if len(str(a)) == 3:        
+        plt.subplot(2, 1, 1)
+        plt.plot(X,GX,label = 'a = ' + str(a))
+    a += 0.0001
+
+#configure plot properties for subplot(2, 1, 1):
+plt.subplot(2, 1, 1);
+plt.tight_layout(h_pad=5)
+plt.title('g(x) for specific values of a')
+plt.xlabel('$x$', fontsize=18)
+plt.ylabel('$g_{(x)}$', fontsize=18)
+#plt.plot(0, 'k')
+plt.grid()
+plt.text(0.05, -0.9, 'fig. 4', fontsize=18)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#sort equilibria containing arrays in respect to the increasing order of parameter a:
+EX1 = zip(*sorted(EX1,key=lambda x: x[0])); EX1x = EX1[1]; EX1y = EX1[0]
+EX2 = zip(*sorted(EX2,key=lambda x: x[0])); EX2x = EX2[1]; EX2y = EX2[0]
+EX3 = zip(*sorted(EX3,key=lambda x: x[0])); EX3x = EX3[1]; EX3y = EX3[0]
+
+#plot curve representing equilibria of x depending on the variation of parameter a:
+plt.subplot(2, 1, 2);
+#lower part of the curve (stable extrema):
+plt.plot(EX1x,EX1y,color = 'k', linewidth=2, label = 'stable equilibria');
+#central part of the curve (unstable extrema):
+plt.plot(EX2x,EX2y,color = 'k', linewidth=2, label = 'unstable equilibria', linestyle = 'dashdot');
+#upper part of the curve (stable extrema):
+plt.plot(EX3x,EX3y,color = 'k', linewidth=2);
+
+#configure plot properties:
+plt.title('equilibria of x(t) for specific values of a')
+plt.grid();
+plt.xlabel('$a$', fontsize=18)
+plt.ylabel('$x$', fontsize=18)
+plt.text(0.51, 1.4, 'fig. 5', fontsize=18)
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 
 
