@@ -2,100 +2,84 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-import matplotlib
-colors = matplotlib.cm.get_cmap('plasma')
-
-from tqdm import tqdm # progress bar
-from scipy.optimize import fsolve # find roots of equation
-
-fig = plt.figure(figsize=(15,7))
-mpl.rc('font', size = 14)
+#from tqdm import tqdm # progress bar
+#from scipy.optimize import fsolve # find roots of equation
 
 from consts import (x0, y0, z0, r0, a1, a2, b1, b2, c1, c2, t_init, t_fin, time_step, TRESHOLD)
-from .edo import (fold, hopf)
+from .edo import (fold, fold_df, hopf_polar, hopf_polar_df, hopf_polar_coupled, hopf_polar_coupled_df)
 from .rk4 import rk4
 
-def fold_bifurcation(guesses):
-  phi = 0
+def bifurcation(fx, df):
+  stable_equilibria = []
+  unstable_equilibria = []
+
   nphi = 100
-  nguesses = 3
+  # bifurcation from phi = -2 to phi = 2
   phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
+  # x from x = -2 to x = 2
+  x_mesh = np.linspace(start=-2, stop=2, num=1000)
 
-  # number of time steps
-  nt = int((t_fin - t_init) / time_step)
-  time_mesh = np.linspace(start=t_init, stop=t_fin, num=nt)
-
-  unstable_equ = []
-  stable_equ = []
   for phi in phi_mesh:
-    fx_set = []
-    for x in np.linspace(0,2,1000):
-      fx = a1 * (x ** 3) + a2 * x + phi
-      fx_set.append(fx)
-      # confident interval
-      if -TRESHOLD < fx < TRESHOLD:
-        # compute derivative to check the nature of equilibrium
-        dfdx = a1 * ((3 * x) ** 2) + a2
-        if dfdx > 0:
-          unstable_equ.append([x, phi])
-        if dfdx < 0:
-          stable_equ.append([x, phi])
+    for x in x_mesh:
+      if -TRESHOLD < fx([x], phi) < TRESHOLD:
+        if df([x], phi) > 0:
+          unstable_equilibria.append([x, phi])
+        elif df([x], phi) < 0:
+          stable_equilibria.append([x, phi])
 
-    unstable_equ = list(zip(*sorted(unstable_equ, key=lambda x: x[0])))
-    unstable_equ_phi = unstable_equ[1]
-    unstable_equ_x = unstable_equ[0]
+  # sorting equilibria
+  unstable_equilibria = list(zip(*sorted(unstable_equilibria, key=lambda x: x[0])))
+  stable_equilibria = list(zip(*sorted(stable_equilibria, key=lambda x: x[0])))
+  return stable_equilibria, unstable_equilibria
 
-    stable_equ = list(zip(*sorted(stable_equ, key=lambda x: x[0])))
-    stable_equ_phi = stable_equ[1]
-    stable_equ_x = stable_equ[0]
+def coupled_bifurcation(fx, df, gx, dg):
+  stable_equilibria_f = []
+  unstable_equilibria_f = []
+  stable_equilibria_g = []
+  unstable_equilibria_g = []
 
-    plt.subplot(2, 1, 1)
-    plt.xlim(-2, 2)
-    plt.ylim(-5, 5)
-    plt.plot(unstable_equ_phi, unstable_equ_x, linestyle="dashdot", label="ligne instable")
-    plt.plot(stable_equ_phi, stable_equ_x, label="ligne stable")
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  nphi = 100
+  # bifurcation from phi = -2 to phi = 2
+  phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
+  # x from x = -2 to x = 2
+  x_mesh = np.linspace(start=-2, stop=2, num=1000)
 
-# def fold_hopf_bifurcation():
-#     equilibria_mesh = np.zeros((nphi, nguesses))
+  for phi in phi_mesh:
+    for x in x_mesh:
+      if -TRESHOLD < fx(x, phi) < TRESHOLD:
+        if df(x, phi) > 0:
+          unstable_equilibria_f.append([x, phi])
+        elif df(x, phi) < 0:
+          stable_equilibria_f.append([x, phi])
 
-#     # for each phi
-#     for phi_index in range(0, nphi-1):
-#       # create mesh
-#       # x = np.zeros(self.nt)
-#       # # set initial conditions (for each phi value)
-#       # x[0] = x0
+      if -TRESHOLD < gx([x, x], phi):
+        if df([x, x], phi) > 0:
+          unstable_equilibria_g.append([x, phi])
+        elif df([x, x], phi) < 0:
+          stable_equilibria_g.append([x, phi])
 
-#       # # simulate the system over time
-#       # for t in range(0, self.nt-1):
-#       #   x[t+1] = rk4(fold, time_step, t, x, self.phi_mesh[phi_index])
-#       # jacobian matrix df(p)
-#       #jac =
+  # sorting equilibria
+  unstable_equilibria_f = list(zip(*sorted(unstable_equilibria_f, key=lambda x: x[0])))
+  stable_equilibria_f = list(zip(*sorted(stable_equilibria_f, key=lambda x: x[0])))
 
-#       guesses = np.linspace(start=-3, stop=3, num=nguesses)
-#       equilibria = []
+  unstable_equilibria_g = list(zip(*sorted(unstable_equilibria_g, key=lambda x: x[0])))
+  stable_equilibria_g = list(zip(*sorted(stable_equilibria_g, key=lambda x: x[0])))
 
-#       # look for some equilibria
-#       for guess in guesses:
-#           equilibrium_fold = fsolve(func=fold, x0=[guess], args=(phi_mesh[phi_index]))
-#           equilibrium_hopf_coupled = fsolve(func=hopf_coupled, x0=[equilibrium_fold, guess, guess], args=(gamma, phi_mesh[phi_index]))
-#           equilibria.append(equilibrium_fold[0])
-#           equilibria.append(equilibrium_hopf_coupled[0])
+  return stable_equilibria_f, unstable_equilibria_f, stable_equilibria_g, unstable_equilibria_g
 
-#       # add to the mesh
-#       equilibria_mesh[phi_index] = equilibria
+  def bifurcations():
+    # fold
+    fold_stable_equilibria, fold_unstable_equilibria = bifurcation(fold, fold_df)
+    # hopf
+    hopf_stable_equilibria,hopf_unstable_equilibria = bifurcation(hopf_polar, hopf_polar_df)
 
-#     plot(equilibria_mesh.copy())
+    # fold-hopf
+    fold_coupled_stable_equilibria, fold_coupled_unstable_equilibria, hopf_coupled_stable_equilibria, hopf_coupled_unstable_equilibria = bifurcation(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
 
-# def plot(dataset, ylabel):
-#     fig, ax = plt.subplots(figsize=(15, 7))
-#     ax.plot(phi_mesh, dataset)
-
-#     plt.xlabel("$\phi$")
-#     plt.ylabel(ylabel)
-#     plt.xlim(-2,2)
-#     plt.ylim(-5,5)
-#     plt.show()
-
-guesses = np.linspace(start=-3, stop=3, num=nguesses)
+    # plt.subplot(2, 1, 1)
+    # plt.xlim(-2, 2)
+    # plt.ylim(-5, 5)
+    # plt.plot(unstable_equ_phi, unstable_equ_x, linestyle="dashdot", label="ligne instable")
+    # plt.plot(stable_equ_phi, stable_equ_x, label="ligne stable")
+    # plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 

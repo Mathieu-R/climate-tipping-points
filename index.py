@@ -1,39 +1,20 @@
 #!/usr/bin/env python3.9
-from PyInquirer import prompt, print_json
+import click
+
 from src.time_series import time_series
-from src.bifurcations import bifurcations
+#from src.bifurcations import bifurcations
+
+time_serie = time_series()
+
+@click.command()
+@click.option("--plot", default="time-serie", help="Type of plot")
+def main(plot):
+  if plot == "time-serie":
+    return time_serie.basic()
+  if plot == "time-serie-noise":
+    return time_serie.stochastic()
+  if plot == "bifurcation":
+    pass
 
 if __name__ == "__main__":
-  start_questions = [
-    {
-      "type": "list",
-      "name": "tipping-points",
-      "message": "Points de cascade dans le système climatique - Bifurcation de Fold-Hopf",
-      "choices": [
-        "Bifurcation de Fold-Hopf - série temporelle (sans bruit)",
-        "Bifurcation de Fold-Hopf - série temporelle (avec bruit)",
-        "Bifurcation de Fold - diagramme de bifurcation",
-        "Bifurcation de Hopf - diagramme de bifurcation"
-      ]
-    }
-  ]
-
-  start_answers = prompt(start_questions)
-  start_answer = start_answers["tipping-points"]
-
-  time_serie = time_series
-
-  if (start_answer == "Bifurcation de Fold-Hopf - série temporelle (sans bruit)"):
-    time_serie.basic()
-
-  if (start_answer == "Bifurcation de Fold-Hopf - série temporelle (avec bruit)"):
-    time_serie.stochastic()
-
-  elif (start_answer == "Bifurcation de Fold - diagramme de bifurcation"):
-    bifurcation = bifurcations()
-    bifurcation.fold()
-
-  elif (start_answer == "Bifurcation de Hopf - diagramme de bifurcation"):
-    bifurcation = bifurcations()
-    bifurcation.hopf()
-
+  main()

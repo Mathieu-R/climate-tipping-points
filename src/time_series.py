@@ -41,14 +41,14 @@ class time_series():
     return dataset
 
   def basic(self):
-    results = solve(rk4)
+    results = self.solve(rk4)
     self.plot(results)
 
   def stochastic(self):
     stochastic_results = []
     # compute a lot of simulations
     for i in range(0,100):
-      results = self.basic(forward_euler_maruyama)
+      results = self.solve(forward_euler_maruyama)
       stochastic_results.append(results)
     self.plot(stochastic_results)
 
