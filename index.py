@@ -11,6 +11,7 @@ if __name__ == "__main__":
       "message": "Points de cascade dans le système climatique - Bifurcation de Fold-Hopf",
       "choices": [
         "Bifurcation de Fold-Hopf - série temporelle (sans bruit)",
+        "Bifurcation de Fold-Hopf - série temporelle (avec bruit)",
         "Bifurcation de Fold - diagramme de bifurcation",
         "Bifurcation de Hopf - diagramme de bifurcation"
       ]
@@ -20,9 +21,13 @@ if __name__ == "__main__":
   start_answers = prompt(start_questions)
   start_answer = start_answers["tipping-points"]
 
+  time_serie = time_series
+
   if (start_answer == "Bifurcation de Fold-Hopf - série temporelle (sans bruit)"):
-    time_serie = time_series()
-    time_serie.rk4()
+    time_serie.basic()
+
+  if (start_answer == "Bifurcation de Fold-Hopf - série temporelle (avec bruit)"):
+    time_serie.stochastic()
 
   elif (start_answer == "Bifurcation de Fold - diagramme de bifurcation"):
     bifurcation = bifurcations()

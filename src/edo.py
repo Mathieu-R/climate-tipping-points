@@ -1,5 +1,7 @@
 import numpy as np
 
+from consts import (a1, a2, b1, b2, c1, c2)
+
 # linear coupling parameter
 # proposed by Dekker et al. article
 def gamma(x):

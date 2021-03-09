@@ -18,3 +18,5 @@ r0 = 5.0
 t_init = 0
 t_fin = 500
 time_step = 0.01
+
+TRESHOLD = 10**-4
