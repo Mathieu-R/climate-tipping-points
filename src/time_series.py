@@ -42,7 +42,7 @@ class time_series():
 
   def basic(self):
     results = self.solve(rk4)
-    self.plot(results)
+    return results
 
   def stochastic(self):
     stochastic_results = []
@@ -50,19 +50,39 @@ class time_series():
     for i in range(0,100):
       results = self.solve(forward_euler_maruyama)
       stochastic_results.append(results)
-    self.plot(stochastic_results)
+    return stochastic_results
 
   def plot(self, dataset):
-    fig, ax = plt.subplots(figsize=(15, 7))
+    basic_results = self.basic()
+    stochastic_results = self.stochastic()
 
-    l1, = ax.plot(self.time_range, dataset[:,0])
-    l2, = ax.plot(self.time_range, dataset[:,1])
-    l3, = ax.plot(self.time_range, dataset[:,2])
+    # 3 lines, 1 column
+    fig, ax = plt.subplots(3, 1, figsize=(15, 7))
+    fig.suptitle("Série temporelle")
 
-    plt.xlabel("t")
-    plt.ylabel("variables")
-    plt.xlim(0,500)
-    plt.ylim(-10,10)
-    plt.legend(self.legends, loc="upper right")
-    plt.title("Fold-Hopf Bifurcation - Time serie")
+    ax[0].plot(self.time_range, basic_results[:,0])
+    ax[0].plot(self.time_range, basic_results[:,1])
+    ax[0].plot(self.time_range, basic_results[:,2])
+
+    ax[0].set_xlabel("$t$")
+    ax[0].set_ylabel("$x$, $y$, $z$")
+    ax[0].set_xlim(0,500)
+    ax[0].set_ylim(-10,10)
+    ax[0].set_legend(self.legends, loc="upper right")
+    ax[0].set_title("Basique")
+
+    ax[1].plot(self.time_range, stochastic_results[:,0])
+    ax[1].plot(self.time_range, stochastic_results[:,1])
+    ax[1].plot(self.time_range, stochastic_results[:,2])
+
+    ax[1].set_xlabel("$t$")
+    ax[1].set_ylabel("$x$, $y$, $z$")
+    ax[1].set_xlim(0,500)
+    ax[1].set_ylim(-10,10)
+    ax[1].set_legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
+    ax[1].set_title("Stochastique")
+
+    plt.tight_layout()
     plt.show()
+
+
