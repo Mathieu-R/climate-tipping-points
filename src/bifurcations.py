@@ -69,46 +69,46 @@ def coupled_bifurcation(fx, df, gx, dg):
 
   return stable_equilibria_f, unstable_equilibria_f, stable_equilibria_g, unstable_equilibria_g
 
-  def bifurcations():
-    # fold
-    fold_stable_equilibria, fold_unstable_equilibria = bifurcation(fold, fold_df)
-    # hopf
-    hopf_stable_equilibria, hopf_unstable_equilibria = bifurcation(hopf_polar, hopf_polar_df)
+def bifurcations():
+  # fold
+  fold_stable_equilibria, fold_unstable_equilibria = bifurcation(fold, fold_df)
+  # hopf
+  hopf_stable_equilibria, hopf_unstable_equilibria = bifurcation(hopf_polar, hopf_polar_df)
 
-    # fold-hopf
-    fold_coupled_stable_equilibria, fold_coupled_unstable_equilibria, hopf_coupled_stable_equilibria, hopf_coupled_unstable_equilibria = coupled_bifurcation(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
+  # fold-hopf
+  fold_coupled_stable_equilibria, fold_coupled_unstable_equilibria, hopf_coupled_stable_equilibria, hopf_coupled_unstable_equilibria = coupled_bifurcation(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
 
-    fig, (ax1, ax2, ax3) = plt.subplot(3, 1, figsize=(15, 7))
-    fig.suptitle("Diagrammes de bifurcation")
+  fig, (ax1, ax2, ax3) = plt.subplot(3, 1, figsize=(15, 7))
+  fig.suptitle("Diagrammes de bifurcation")
 
-    ax1.plot(fold_stable_equilibria[0], fold_stable_equilibria[1], color="black", label="ligne stable")
-    ax1.plot(fold_unstable_equilibria[0], fold_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-    ax1.set_xlabel("$\phi$")
-    ax1.set_ylabel("$x$")
-    ax1.set_xlim(-2, 2)
-    ax1.set_ylim(-5, 5)
-    ax1.set_title("Fold")
-    ax1.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax1.plot(fold_stable_equilibria[0], fold_stable_equilibria[1], color="black", label="ligne stable")
+  ax1.plot(fold_unstable_equilibria[0], fold_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax1.set_xlabel("$\phi$")
+  ax1.set_ylabel("$x$")
+  ax1.set_xlim(-2, 2)
+  ax1.set_ylim(-5, 5)
+  ax1.set_title("Fold")
+  ax1.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-    ax2.plot(hopf_stable_equilibria[0], hopf_stable_equilibria[1], color="black", label="ligne stable")
-    ax2.plot(hopf_unstable_equilibria[0], hopf_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-    ax2.set_xlabel("$\phi$")
-    ax2.set_ylabel("$r$")
-    ax2.set_xlim(-2, 2)
-    ax2.set_ylim(-5, 5)
-    ax2.set_title("Hopf")
-    ax2.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax2.plot(hopf_stable_equilibria[0], hopf_stable_equilibria[1], color="black", label="ligne stable")
+  ax2.plot(hopf_unstable_equilibria[0], hopf_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax2.set_xlabel("$\phi$")
+  ax2.set_ylabel("$r$")
+  ax2.set_xlim(-2, 2)
+  ax2.set_ylim(-5, 5)
+  ax2.set_title("Hopf")
+  ax2.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-    ax3.plot(fold_coupled_stable_equilibria[0], fold_coupled_stable_equilibria[1], color="black", label="ligne stable")
-    ax3.plot(fold_coupled_unstable_equilibria[0], fold_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-    ax3.plot(hopf_coupled_stable_equilibria[0], hopf_coupled_stable_equilibria[1], color="black", label="ligne stable")
-    ax3.plot(hopf_coupled_unstable_equilibria[0], hopf_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-    ax3.set_xlabel("$\phi$")
-    ax3.set_ylabel("$x$, $r$")
-    ax3.set_xlim(-2, 2)
-    ax3.set_ylim(-5, 5)
-    ax3.set_title("Fold-Hopf")
-    ax3.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax3.plot(fold_coupled_stable_equilibria[0], fold_coupled_stable_equilibria[1], color="black", label="ligne stable")
+  ax3.plot(fold_coupled_unstable_equilibria[0], fold_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax3.plot(hopf_coupled_stable_equilibria[0], hopf_coupled_stable_equilibria[1], color="black", label="ligne stable")
+  ax3.plot(hopf_coupled_unstable_equilibria[0], hopf_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax3.set_xlabel("$\phi$")
+  ax3.set_ylabel("$x$, $r$")
+  ax3.set_xlim(-2, 2)
+  ax3.set_ylim(-5, 5)
+  ax3.set_title("Fold-Hopf")
+  ax3.set_legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-    plt.tight_layout()
-    plt.show()
+  plt.tight_layout()
+  plt.show()

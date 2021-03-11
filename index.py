@@ -9,10 +9,12 @@ time_serie = time_series()
 @click.command()
 @click.option("--plot", default="time-serie", help="Type of plot")
 def main(plot):
-  if plot == "time-serie":
+  if plot == "time-series":
     return time_serie.plot()
-  if plot == "bifurcation":
+  if plot == "bifurcations":
     return bifurcations()
+  else:
+    print("command not found.")
 
 if __name__ == "__main__":
   main()
