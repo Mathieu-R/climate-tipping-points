@@ -6,7 +6,7 @@ from consts import (a1, a2, b1, b2, c1, c2)
 # linear coupling parameter
 # proposed by Dekker et al. article
 def gamma(x):
-    return (-0.1 + 0.12*x)
+  return (-0.1 + 0.12*x)
 
 """
 @param v: [x]
@@ -21,19 +21,21 @@ def fold_df(v, phi):
 @param v: [r]
 """
 def hopf_polar(v, phi):
-  return phi * v[0] - (v[0] ** 3)
+  return (phi * v[0]) - (v[0] ** 3)
 
 def hopf_polar_df(v, phi):
-  return phi - 3 * (v[0] ** 2)
+  return phi - (3 * (v[0] ** 2))
 
 """
 @param v: [x, r]
 """
 def hopf_polar_coupled(v, phi):
-  return gamma(v[0]) * v[1] - (v[1] ** 3)
+  #print((gamma(v[0]) * v[1]) - (v[1] ** 3))
+  return (gamma(v[0]) * v[1]) - (v[1] ** 3)
 
 def hopf_polar_coupled_df(v, phi):
-  return gamma(v[0]) - 3 * (v[1] ** 2)
+  #print(gamma(v[0]) - (3 * (v[1] ** 2)))
+  return gamma(v[0]) - (3 * (v[1] ** 2))
 
 # def hopf_coupled(v, gamma, phi):
 #   rsquared = v[1] ** 2 + v[2] ** 2

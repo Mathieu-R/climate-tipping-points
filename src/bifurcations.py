@@ -50,17 +50,19 @@ def coupled_bifurcation(fx, df, gx, dg):
 
   for phi in phi_mesh:
     for x in x_mesh:
+      # ensure we are in a neighbourhood of the equilibrium point
       if -TRESHOLD < fx([x], phi) < TRESHOLD:
+        print(fx([x], phi))
         if df([x], phi) > 0:
           unstable_equilibria_f.append([x, phi])
         elif df([x], phi) < 0:
           stable_equilibria_f.append([x, phi])
 
-      print(gx([x, x], phi))
       if -TRESHOLD < gx([x, x], phi) < TRESHOLD:
         if dg([x, x], phi) > 0:
           unstable_equilibria_g.append([x, phi])
         elif dg([x, x], phi) < 0:
+          print("unstable")
           stable_equilibria_g.append([x, phi])
 
   # sorting equilibria
@@ -70,7 +72,7 @@ def coupled_bifurcation(fx, df, gx, dg):
   unstable_equilibria_g = list(zip(*sorted(unstable_equilibria_g, key=lambda x: x[0])))
   stable_equilibria_g = list(zip(*sorted(stable_equilibria_g, key=lambda x: x[0])))
 
-  print(unstable_equilibria_g)
+  #print(unstable_equilibria_g)
 
   return stable_equilibria_f, unstable_equilibria_f, stable_equilibria_g, unstable_equilibria_g
 
@@ -83,7 +85,7 @@ def bifurcations():
   # fold-hopf
   fold_coupled_stable_equilibria, fold_coupled_unstable_equilibria, hopf_coupled_stable_equilibria, hopf_coupled_unstable_equilibria = coupled_bifurcation(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
 
-  print(hopf_coupled_unstable_equilibria)
+  #print(hopf_coupled_unstable_equilibria)
 
   fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 7))
   fig.suptitle("Diagrammes de bifurcation")
