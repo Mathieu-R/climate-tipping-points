@@ -21,7 +21,7 @@ def fold_df(v, phi):
 @param v: [r]
 """
 def hopf_polar(v, phi):
-  return phi * v[0] - (v[0] ** 3),
+  return phi * v[0] - (v[0] ** 3)
 
 def hopf_polar_df(v, phi):
   return phi - 3 * (v[0] ** 2)
