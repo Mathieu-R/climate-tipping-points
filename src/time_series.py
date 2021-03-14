@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 
 from tqdm import tqdm
 
-from .edo import (fold_hopf, gamma)
+from .edo import (fold_hopf)
+from .edo_stoch import (fold_hopf_stoch)
 from .rk4 import rk4
 from .euler import forward_euler_maruyama
 
-from consts import (x0, y0, z0, t_init, t_fin, time_step)
+from consts import (x0, y0, z0, t_init, t_fin, time_step, time_step_stoch)
 
 plt.style.use("seaborn-whitegrid")
 np.set_printoptions(precision=3, suppress=True)
@@ -22,6 +23,7 @@ class time_series():
     self.t0 = t_init
     self.tN = t_fin
     self.dt = time_step
+    self.dt_stoch = time_step_stoch
     self.nt = int((self.tN - self.t0) / self.dt)
     # stochastic number of iterations
     self.niter = 10
@@ -30,7 +32,7 @@ class time_series():
     self.time_range = np.linspace(start=self.t0, stop=self.tN, num=self.nt)
     self.legends = ["$x$ (leading)", "$y$ (following)", "$z$ (following)"]
 
-  def solve(self, solver):
+  def solve(self, solver, edo, dt):
     # [x0, y0, z0]
     #v = self.initial_conditions[0]
 
@@ -38,9 +40,10 @@ class time_series():
     v_mesh = np.ones((self.nt, 3)) #
     # set inital conditions
     v_mesh[0] = self.initial_conditions[0]
+    print(edo, dt)
 
     for t in tqdm(range(0, self.nt - 1)):
-      v_mesh[t + 1] = v_mesh[t] + solver(fold_hopf, v_mesh[t], self.dt, gamma, self.phi)
+      v_mesh[t + 1] = v_mesh[t] + solver(edo, v_mesh[t], dt, self.phi)
       #dataset = np.append(self.dataset, [v.copy()], axis=0)
 
       # increase forcing parameter
@@ -51,14 +54,14 @@ class time_series():
 
   def basic(self):
     # [ [x0, y0, z0], [x1, y1, z1], ..., [xN, yN, zN] ]
-    results = self.solve(rk4)
+    results = self.solve(rk4, fold_hopf, self.dt)
     return results
 
   def stochastic(self):
     stochastic_results = np.ones((self.niter, self.nt, 3))
     # compute a lot of simulations
     for i in tqdm(range(0, self.niter)):
-      results = self.solve(forward_euler_maruyama)
+      results = self.solve(forward_euler_maruyama, fold_hopf_stoch, self.dt_stoch)
       stochastic_results[i] = results
     return stochastic_results
 

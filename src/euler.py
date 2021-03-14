@@ -1,9 +1,12 @@
 import numpy as np
+from consts import (mean, variance)
 
 """
 forward euler method with a stochastical term
+x_{i+1} = x_i * dt + zeta + sqrt(dt)
+(forward-euler + gaussian noise * sqrt(dt))
 """
 def forward_euler_maruyama(edo, v, dt, *args):
-  eta = np.random.normal(loc=0.0, scale=np.sqrt(dt))
-  return edo(v, *args) * dt + eta * np.sqrt(dt)
+  zeta = np.random.normal(loc=mean, scale=np.sqrt(variance))
+  return edo(v, *args) * dt + zeta * np.sqrt(dt)
 
