@@ -23,10 +23,19 @@ class time_series():
     self.t0 = t_init
     self.tN = t_fin
     # stochastic number of iterations
-    self.niter = 10
+    self.niter = 100
     # legend
     self.legends = ["$x$ (leading)", "$y$ (following)", "$z$ (following)"]
 
+  """ Plot a temporal serie
+
+  :solver: function -- (edo, v, dt, *args) -> ndarray
+  :edo: function -- (v, phi) -> ndarray
+  :dt: float -- time step
+  :nt: int -- number of time steps (N)
+
+  :return: ndarray -- [[x0, y0, z0], ..., [x{N-1}, y{N-1}, z{N-1}]]
+  """
   def solve(self, solver, edo, dt, nt):
     # [x0, y0, z0]
     #v = self.initial_conditions[0]
@@ -41,8 +50,10 @@ class time_series():
       v_mesh[t + 1] = v_mesh[t] + solver(edo, v_mesh[t], dt, self.phi)
 
       # increase forcing parameter
-      self.phi += 0.001
+      if self.phi <= 50.0: self.phi += 0.001
 
+    # reset forcing parameter
+    self.phi = -2
     return v_mesh
 
   def basic(self):
@@ -59,13 +70,13 @@ class time_series():
     nt = int((self.tN - self.t0) / dt)
     time_mesh_stoch = np.linspace(start=self.t0, stop=self.tN, num=nt)
 
-
+    results = np.ones((3, nt))
     stochastic_results = np.ones((self.niter, nt, 3))
     # compute a lot of simulations
     for i in tqdm(range(0, self.niter)):
       results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt)
       stochastic_results[i] = results
-    return time_mesh_stoch, stochastic_results
+    return time_mesh_stoch, results
 
   def plot(self):
     time_mesh_basic, basic_results = self.basic()
@@ -86,11 +97,11 @@ class time_series():
     ax1.legend(self.legends, loc="upper right")
     ax1.set_title("Basique")
 
-    print(stochastic_results)
+    #print(stochastic_results)
 
-    ax2.stackplot(time_mesh_stoch, stochastic_results[:,:,0])
-    ax2.stackplot(time_mesh_stoch, stochastic_results[:,:,1])
-    ax2.stackplot(time_mesh_stoch, stochastic_results[:,:,2])
+    ax2.plot(time_mesh_stoch, stochastic_results[:,0])
+    ax2.plot(time_mesh_stoch, stochastic_results[:,1])
+    ax2.plot(time_mesh_stoch, stochastic_results[:,2])
 
     ax2.set_xlabel("$t$")
     ax2.set_ylabel("$x$, $y$, $z$")

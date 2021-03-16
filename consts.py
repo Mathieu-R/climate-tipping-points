@@ -36,6 +36,6 @@ c1_stoch = -0.5
 c2_stoch = 1
 gamma1_stoch = -0.2
 gamma2_stoch = 0.3
-time_step_stoch = 0.5
+time_step_stoch = 0.1
 
 TRESHOLD = 10**-4
