@@ -35,7 +35,7 @@ class time_series():
     v_mesh = np.ones((nt, 3)) #
     # set inital conditions
     v_mesh[0] = self.initial_conditions[0]
-    print(edo, dt)
+    #print(edo, dt)
 
     for t in tqdm(range(0, nt - 1)):
       v_mesh[t + 1] = v_mesh[t] + solver(edo, v_mesh[t], dt, self.phi)
@@ -65,13 +65,11 @@ class time_series():
     for i in tqdm(range(0, self.niter)):
       results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt)
       stochastic_results[i] = results
-      return
     return time_mesh_stoch, stochastic_results
 
   def plot(self):
-    #time_mesh_basic, basic_results = self.basic()
+    time_mesh_basic, basic_results = self.basic()
     time_mesh_stoch, stochastic_results = self.stochastic()
-    return
 
     # 3 lines, 1 column
     fig, ((ax1), (ax2)) = plt.subplots(2, 1, figsize=(15, 7))
@@ -84,7 +82,7 @@ class time_series():
     ax1.set_xlabel("$t$")
     ax1.set_ylabel("$x$, $y$, $z$")
     ax1.set_xlim(0,500)
-    ax1.set_ylim(-1.5,1.5)
+    ax1.set_ylim(-10,10)
     ax1.legend(self.legends, loc="upper right")
     ax1.set_title("Basique")
 
