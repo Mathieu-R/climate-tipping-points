@@ -1,55 +1,40 @@
 import numpy as np
 from consts import (a1, a2, b1, b2, c1, c2, gamma1, gamma2)
 
-# note: v is a vector. example: v = [x, y, z]
-
 # linear coupling parameter
 # proposed by Dekker et al. article
 def gamma(x):
   return gamma1 + (gamma2 * x)
 
+"""Leading vs forcing \phi
+  :x: float
 """
-@param v: [x]
+def fold(x, phi):
+  return (a1 * (x ** 3)) + (a2 * x) + phi
+
+def fold_df(x, phi):
+  return (3 * a1 * (x ** 2)) + a2
+
+"""Following vs coupling \gamma
+    \gamma act like a forcing parameter
+  :r: float
 """
-def fold(v, phi):
-  return a1 * (v[0] ** 3) + a2 * v[0] + phi
+def hopf_polar(r, gam):
+  return (gam * r) - (r ** 3)
 
-def fold_df(v, phi):
-  return 3 * a1 * (v[0] ** 2) + a2
+def hopf_polar_df(r, gam):
+  return gam - (3 * (r ** 2))
 
+"""Following vs forcing \phi
+    \gamma act like a coupled parameter through x and so \phi
+  :r: float
 """
-@param v: [r]
-"""
-def hopf_polar(v, phi):
-  return (phi * v[0]) - (v[0] ** 3)
+def hopf_polar_coupled(r, x):
+  return (gamma(x) * r) - (r ** 3)
 
-def hopf_polar_df(v, phi):
-  return phi - (3 * (v[0] ** 2))
+def hopf_polar_coupled_df(r, x):
+  return gamma(x) - (3 * (r ** 2))
 
-"""
-@param v: [x, r]
-"""
-def hopf_polar_coupled(v, phi):
-  #print((gamma(v[0]) * v[1]) - (v[1] ** 3))
-  return (gamma(v[0]) * v[1]) - (v[1] ** 3)
-
-def hopf_polar_coupled_df(v, phi):
-  #print(gamma(v[0]) - (3 * (v[1] ** 2)))
-  return gamma(v[0]) - (3 * (v[1] ** 2))
-
-# def hopf_coupled(v, gamma, phi):
-#   rsquared = v[1] ** 2 + v[2] ** 2
-#   return np.array([
-#     gamma(v[0]) * rsquared - (rsquared ** 3)
-#   ])
-
-# v is a vector \vec{v}: [x, y, z]
-# def fold_hopf_polar(v, gamma, phi):
-#   rsquared = v[1] ** 2 + v[2] ** 2
-#   return np.array([
-#     a1 * (v[0] ** 3) + a2 * v[0] + phi,
-#     gamma(v[0]) * rsquared - (rsquared ** 3)
-#   ])
 
 # v is a vector \vec{v}: [x, y, z]
 def fold_hopf(v, phi):
