@@ -76,7 +76,10 @@ class time_series():
     for i in tqdm(range(0, self.niter)):
       results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt)
       stochastic_results[i] = results
-    return time_mesh_stoch, results
+
+    # compute the mean
+    mean = np.mean(stochastic_results, axis=0)
+    return time_mesh_stoch, mean
 
   def plot(self):
     time_mesh_basic, basic_results = self.basic()
@@ -86,27 +89,27 @@ class time_series():
     fig, ((ax1), (ax2)) = plt.subplots(2, 1, figsize=(15, 7))
     fig.suptitle("Série temporelle")
 
-    ax1.plot(time_mesh_basic, basic_results[:,0])
-    ax1.plot(time_mesh_basic, basic_results[:,1])
-    ax1.plot(time_mesh_basic, basic_results[:,2])
+    ax1.plot(time_mesh_basic, basic_results[:,0], color="black")
+    ax1.plot(time_mesh_basic, basic_results[:,1], color="red")
+    ax1.plot(time_mesh_basic, basic_results[:,2], color="gold")
 
     ax1.set_xlabel("$t$")
     ax1.set_ylabel("$x$, $y$, $z$")
     ax1.set_xlim(0,500)
-    ax1.set_ylim(-10,10)
-    ax1.legend(self.legends, loc="upper right")
+    ax1.set_ylim(-7,7)
+    ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     ax1.set_title("Basique")
 
     #print(stochastic_results)
 
-    ax2.plot(time_mesh_stoch, stochastic_results[:,0])
-    ax2.plot(time_mesh_stoch, stochastic_results[:,1])
-    ax2.plot(time_mesh_stoch, stochastic_results[:,2])
+    ax2.plot(time_mesh_stoch, stochastic_results[:,0], color="black")
+    ax2.plot(time_mesh_stoch, stochastic_results[:,1], color="red")
+    ax2.plot(time_mesh_stoch, stochastic_results[:,2], color="gold")
 
     ax2.set_xlabel("$t$")
     ax2.set_ylabel("$x$, $y$, $z$")
     ax2.set_xlim(0,500)
-    ax2.set_ylim(-1.5,1.5)
+    ax2.set_ylim(-5,5)
     ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     ax2.set_title("Stochastique")
 

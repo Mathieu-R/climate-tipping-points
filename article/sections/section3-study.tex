@@ -2,13 +2,14 @@
 
 Cette bifurcation apparait dans un système d'équations différentielles ordinaires (EDOs) constitué à la fois d'une EDO à 1 dimension que l'on appellera système primaire et d'un sous-système d'EDOs à 2 dimensions que l'on appellera système secondaire. De ce premier système surgit une bifurcation de type \emph{"Fold"} tandis que du second système surgit une bifurcation de type \emph{"Hopf"}.
 
-\begin{equation}
+\begin{equation} \label{eq:fold-hopf}
   \begin{cases}
-    \dot{x} = a_1x^3 + a_2x + \phi \quad, \textit{système primaire} \\
-    \dot{y} = b_1z + b_2(\gamma(x) - (y^2 + z^2))y \quad, \textit{système secondaire} \\
+    \dot{x} = a_1x^3 + a_2x + \phi \\
+    \dot{y} = b_1z + b_2(\gamma(x) - (y^2 + z^2))y \\
     \dot{z} = c_1y + c_2(\gamma(x) - (y^2 + z^2))z
   \end{cases}
 \end{equation}
+où nous appellerons $\dot{x}$ le \textbf{système primaire} et l'ensemble $\dot{y}$ et $\dot{z}$ le \textbf{système secondaire}.
 
 Alors que nous nous approchons de la valeur critique de la bifurcation que nous noterons $\phi_{crit}$, une petite perturbation du paramètre $phi$ suffit pour passer la bifurcation et modifier considérablement le comportement qualitatif du système. Dans le langage des systèmes dynamiques on dit qu'il y a création, suppression d'équilibres voir modification dans la nature de ces équilibres. Toutefois, dans la définition des points de bascules, il en existe certains qui sont reversibles et qui ne sont donc pas dû à des bifurcations (\cite{lenton_tipping_2008}). Nous ne considérerons pas ces derniers dans cet article.
 
@@ -109,4 +110,7 @@ Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmen
 % SERIE TEMPORELLE
 
 % SERIE TEMPORELLE STOCHASTIQUE
+
+On a vu que la transition dans le système secondaire est générée par cascade une fois que le système primaire à passé son point critique $\phi_c$. En particulier nous avons vu que la transition de ce dernier induit un "grand saut" dans la variable $x$ ce qui a pour conséquence de fortement augmenté le paramètre de couplage et donc de pousser le système secondaire à passer son point critique. Tout cela rend le système secondaire fortement dépendent de la bifurcation du système primaire. Au préalable de cette bifurcation, le système secondaire est peu dépendant du système primaire et plus sensible au bruit.
+On considère dès à présent le système (\cref{eq:fold-hopf}) où nous ajoutons un terme stochastique $\xi_i$ avec $i \in {x, y, z}$. Il s'agit en réalité de bruits blancs gaussiens.
 
