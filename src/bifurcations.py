@@ -12,112 +12,125 @@ from .edo import (fold, fold_df, hopf_polar, hopf_polar_df, hopf_polar_coupled, 
 from .rk4 import rk4
 
 np.set_printoptions(precision=3, suppress=True)
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 10))
+fig.suptitle("Diagrammes de bifurcation")
 
-def bifurcation(fx, df):
-  stable_equilibria = []
-  unstable_equilibria = []
+"""Leading vs forcing \phi
 
-  nphi = 100
-  # bifurcation from phi = -2 to phi = 2
-  phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
-  # x from x = -2 to x = 2
-  x_mesh = np.linspace(start=-2, stop=2, num=1000)
+"""
+def fold_bifurcation(fx, df):
+  stable_equ_up = []
+  stable_equ_down = []
+  unstable_equ = []
 
+  nphi = 1000
+  nx = 10000
+
+  phi_mesh = np.linspace(start=-0.4, stop=0.4, num=nphi)
+  x_mesh = np.linspace(start=-5, stop=5, num=nx)
+
+  # algorithm
   for phi in phi_mesh:
     for x in x_mesh:
-      if -TRESHOLD < fx([x], phi) < TRESHOLD:
-        if df([x], phi) > 0:
-          unstable_equilibria.append([x, phi])
-        elif df([x], phi) < 0:
-          stable_equilibria.append([x, phi])
+      f_value = fx(x, phi)
+      #print(f_value)
+      # check if I am in trusting interval (i.e. near an equilibirum point such that \dot{r} = 0)
+      if - TRESHOLD < f_value < TRESHOLD:
+        # YEAH ! We hit an equilibrium point.
+        # Check its stability (stable or unstable)
+        df_value = df(x, phi)
+        if df_value > 0:
+          unstable_equ.append([x, phi])
+        elif df_value < 0:
+          if x > 0.:
+            stable_equ_up.append([x, phi])
+          elif x < 0.:
+            stable_equ_down.append([x, phi])
 
-  # sorting equilibria
-  unstable_equilibria = list(zip(*sorted(unstable_equilibria, key=lambda x: x[0])))
-  stable_equilibria = list(zip(*sorted(stable_equilibria, key=lambda x: x[0])))
-  return stable_equilibria, unstable_equilibria
+  # [[x1, phi1],...,[xN, phiN]] => [[x1,...,xN], [phi1,...,phiN]]
+  unstable_equ = list(zip(*unstable_equ))
+  stable_equ_up = list(zip(*stable_equ_up))
+  stable_equ_down = list(zip(*stable_equ_down))
 
-def coupled_bifurcation(fx, df, gx, dg):
-  stable_equilibria_f = []
-  unstable_equilibria_f = []
-  stable_equilibria_g = []
-  unstable_equilibria_g = []
-
-  nphi = 100
-  # bifurcation from phi = -2 to phi = 2
-  phi_mesh = np.linspace(start=-2, stop=2, num=nphi)
-  # x from x = -2 to x = 2
-  x_mesh = np.linspace(start=-2, stop=2, num=1000)
-
-  for phi in phi_mesh:
-    for x in x_mesh:
-      # ensure we are in a neighbourhood of the equilibrium point
-      if -TRESHOLD < fx([x], phi) < TRESHOLD:
-        print(fx([x], phi))
-        if df([x], phi) > 0:
-          unstable_equilibria_f.append([x, phi])
-        elif df([x], phi) < 0:
-          stable_equilibria_f.append([x, phi])
-
-      if -TRESHOLD < gx([x, x], phi) < TRESHOLD:
-        if dg([x, x], phi) > 0:
-          unstable_equilibria_g.append([x, phi])
-        elif dg([x, x], phi) < 0:
-          print("unstable")
-          stable_equilibria_g.append([x, phi])
-
-  # sorting equilibria
-  unstable_equilibria_f = list(zip(*sorted(unstable_equilibria_f, key=lambda x: x[0])))
-  stable_equilibria_f = list(zip(*sorted(stable_equilibria_f, key=lambda x: x[0])))
-
-  unstable_equilibria_g = list(zip(*sorted(unstable_equilibria_g, key=lambda x: x[0])))
-  stable_equilibria_g = list(zip(*sorted(stable_equilibria_g, key=lambda x: x[0])))
-
-  #print(unstable_equilibria_g)
-
-  return stable_equilibria_f, unstable_equilibria_f, stable_equilibria_g, unstable_equilibria_g
-
-def bifurcations():
-  # fold
-  fold_stable_equilibria, fold_unstable_equilibria = bifurcation(fold, fold_df)
-  # hopf
-  hopf_stable_equilibria, hopf_unstable_equilibria = bifurcation(hopf_polar, hopf_polar_df)
-
-  # fold-hopf
-  fold_coupled_stable_equilibria, fold_coupled_unstable_equilibria, hopf_coupled_stable_equilibria, hopf_coupled_unstable_equilibria = coupled_bifurcation(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
-
-  #print(hopf_coupled_unstable_equilibria)
-
-  fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 7))
-  fig.suptitle("Diagrammes de bifurcation")
-
-  ax1.plot(fold_stable_equilibria[0], fold_stable_equilibria[1], color="black", label="ligne stable")
-  ax1.plot(fold_unstable_equilibria[0], fold_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
+  # plot
+  ax1.plot(stable_equ_up[0], stable_equ_up[1], color="black", label="ligne stable")
+  ax1.plot(stable_equ_down[0], stable_equ_down[1], color="black", label="ligne stable")
+  ax1.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
   ax1.set_xlabel("$\phi$")
   ax1.set_ylabel("$x$")
-  ax1.set_xlim(-2, 2)
-  ax1.set_ylim(-5, 5)
+  ax1.set_xlim(-1, 1)
+  ax1.set_ylim(-1.5, 1.5)
   ax1.set_title("Fold")
   ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-  ax2.plot(hopf_stable_equilibria[0], hopf_stable_equilibria[1], color="black", label="ligne stable")
-  ax2.plot(hopf_unstable_equilibria[0], hopf_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax2.set_xlabel("$\phi$")
+"""Following vs coupling \gamma
+
+"""
+def hopf_bifurcation(fx, df):
+  stable_equ_middle = []
+  stable_equ_up = []
+  stable_equ_down = []
+  unstable_equ = []
+
+  ngamma = 1000
+  nr = 10000
+
+  gamma_mesh = np.linspace(start=-1, stop=1, num=ngamma)
+  r_mesh = np.linspace(start=-1.5, stop=1.5, num=nr)
+
+  # algorithm
+  for gamma in gamma_mesh:
+    for r in r_mesh:
+      f_value = fx(r, gamma)
+      #print(f_value)
+      # check if I am in trusting interval (i.e. near an equilibirum point such that \dot{r} = 0)
+      if - TRESHOLD < f_value < TRESHOLD:
+        # YEAH ! We hit an equilibrium point.
+        # Check its stability (stable or unstable)
+        df_value = df(r, gamma)
+        if df_value > 0:
+          unstable_equ.append([gamma, r])
+        elif df_value < 0:
+          # decorralate points (otherwise matplotlib connect every points of each branch with a line)
+          if r > 0.:
+            stable_equ_up.append([gamma, r])
+          elif r < 0.:
+            stable_equ_down.append([gamma, r])
+          else:
+            stable_equ_middle.append([gamma, r])
+
+  unstable_equ = list(zip(*unstable_equ))
+  stable_equ_middle = list(zip(*stable_equ_middle))
+  stable_equ_up = list(zip(*stable_equ_up))
+  stable_equ_down = list(zip(*stable_equ_down))
+
+  # plot
+  ax2.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
+  ax2.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
+  ax2.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
+  ax2.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax2.set_xlabel("$\gamma$")
   ax2.set_ylabel("$r$")
-  ax2.set_xlim(-2, 2)
-  ax2.set_ylim(-5, 5)
+  ax2.set_xlim(-1, 1)
+  ax2.set_ylim(-1.5, 1.5)
   ax2.set_title("Hopf")
   ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-  ax3.plot(fold_coupled_stable_equilibria[0], fold_coupled_stable_equilibria[1], color="black", label="ligne stable")
-  ax3.plot(fold_coupled_unstable_equilibria[0], fold_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax3.plot(hopf_coupled_stable_equilibria[0], hopf_coupled_stable_equilibria[1], color="black", label="ligne stable")
-  ax3.plot(hopf_coupled_unstable_equilibria[0], hopf_coupled_unstable_equilibria[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax3.set_xlabel("$\phi$")
-  ax3.set_ylabel("$x$, $r$")
-  ax3.set_xlim(-2, 2)
-  ax3.set_ylim(-5, 5)
-  ax3.set_title("Fold-Hopf")
-  ax3.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+"""Following vs forcing \phi
+  # 1. loop each \phi
+  # # 1.1. solve \dot{x} for that \phi => get x value
+  # # 1.2. loop each r
+  # # # 1.2.1 check root of the "following system" (polar)
+  # # # 1.2.1 that value of x will change value of \gamma in the "following system"
+"""
+def fold_hopf_bifurcations(fx, df):
+  pass
+
+def run_bifurcations():
+  fold_bifurcation(fold, fold_df)
+  hopf_bifurcation(hopf_polar, hopf_polar_df)
 
   plt.tight_layout()
   plt.show()
+
+run_bifurcations()
