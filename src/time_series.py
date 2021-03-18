@@ -134,13 +134,14 @@ class time_series():
       y="variables",
       hue="position",
       data=stochastic_results,
+      legend=False,
       ax=ax2
     ).savefig("lol.png")
 
     ax2.set_xlabel("$t$")
     ax2.set_ylabel("$x$, $y$, $z$")
-    ax2.set_xlim(0,500)
-    ax2.set_ylim(-5,5)
+    #ax2.set_xlim(0,500)
+    #ax2.set_ylim(-5,5)
     ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     ax2.set_title("Stochastique")
 

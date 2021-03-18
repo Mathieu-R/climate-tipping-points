@@ -34,7 +34,7 @@ def fold_bifurcation(fx, df):
     for x in x_mesh:
       f_value = fx(x, phi)
       #print(f_value)
-      # check if I am in trusting interval (i.e. near an equilibirum point such that \dot{r} = 0)
+      # check if I am in trusting interval (i.e. near an equilibirum point such that \dot{x} = 0)
       if - TRESHOLD < f_value < TRESHOLD:
         # YEAH ! We hit an equilibrium point.
         # Check its stability (stable or unstable)
@@ -106,8 +106,8 @@ def hopf_bifurcation(fx, df):
 
   # plot
   #ax2.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
-  ax2.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
-  ax2.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
+  ax2.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax2.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
   ax2.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
   ax2.set_xlabel("$\gamma$")
   ax2.set_ylabel("$r$")
@@ -118,12 +118,18 @@ def hopf_bifurcation(fx, df):
 
 """Following vs forcing \phi
   # 1. loop each \phi
-  # # 1.1. solve \dot{x} for that \phi => get x value
+  # # 1.1. check roots of the leading system \dot{x} for that \phi => get x values
   # # 1.2. loop each r
-  # # # 1.2.1 check root of the "following system" (polar)
+  # # # 1.2.1 check roots of the "following system" (polar)
   # # # 1.2.1 that value of x will change value of \gamma in the "following system"
+
+  # sorry for that ugly notation.
+  :px: function -- primary system ODE
+  :dp: function -- primary system ODE JAC
+  :sr: function -- secondary system ODE
+  :ds: function -- secondary system ODE JAC
 """
-def fold_hopf_bifurcations(fx, df):
+def fold_hopf_bifurcations(px, dp, sr, ds):
   stable_equ_middle = []
   stable_equ_up = []
   stable_equ_down = []
@@ -131,15 +137,59 @@ def fold_hopf_bifurcations(fx, df):
 
   nphi = 1000
   nr = 10000
+  nx = 10000
 
   phi_mesh = np.linspace(start=-1, stop=1, num=nphi)
+  x_mesh = np.linspace(start=-1.5, stop=1.5, num=nx)
+
   r_mesh = np.linspace(start=-1.5, stop=1.5, num=nr)
+  # loop each \phi
   for phi in phi_mesh:
-    pass
+    for x in x_mesh:
+      p_value = px(x, phi)
+      # looking for equilibria in the leading system \dot{x}
+      # check if I am in trusting interval (i.e. near an equilibirum point such that \dot{x} = 0)
+      if - TRESHOLD < p_value < TRESHOLD:
+        # YEAH ! We hit an equilibrium point.
+        # loop for each r
+        for r in r_mesh:
+          s_value = sr(r, x)
+          # looking for equilibria in the secondary system \dot{r}
+          if - TRESHOLD < s_value < TRESHOLD:
+            # YEAH WE GOT IT.
+            # check the stability
+            ds_value = ds(r, x)
+            if ds_value > 0:
+              unstable_equ.append([phi, r])
+            elif ds_value < 0:
+              if r > 0:
+                stable_equ_up.append([phi, r])
+              elif r < 0:
+                stable_equ_down.append([phi, r])
+              else:
+                stable_equ_middle.append([phi, r])
+
+  unstable_equ = list(zip(*unstable_equ))
+  stable_equ_middle = list(zip(*stable_equ_middle))
+  stable_equ_up = list(zip(*stable_equ_up))
+  stable_equ_down = list(zip(*stable_equ_down))
+
+  # plot
+  #ax3.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
+  ax3.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax3.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax3.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax3.set_xlabel("$\phi$")
+  ax3.set_ylabel("$r$")
+  ax3.set_xlim(-1, 1)
+  ax3.set_ylim(-1.5, 1.5)
+  ax3.set_title("Fold-Hopf")
+  ax3.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 def run_bifurcations():
   fold_bifurcation(fold, fold_df)
   hopf_bifurcation(hopf_polar, hopf_polar_df)
+  fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
 
   plt.tight_layout()
   plt.show()
