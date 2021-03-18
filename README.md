@@ -15,23 +15,12 @@ $ source env/bin/activate
 $ python3 -m pip install --upgrade pip
 ```
 
-Connect Jupyter to virtual environment
-```bash
-$ python3 -m pip3 install ipykernel
-$ python3 -m ipykernel install --name=<env-name>
-```
-
 Install required packages
 ```bash
-$ python3 -m pip install --requirement=requirements.tex
+$ python3 -m pip install numpy matplotlib pandas seaborn click tqdm
 ```
 
-Launch Jupyter Lab
+Launch examples
 ```bash
-$ jupyter lab
-```
-
-### Using Kite extension with Jupyter Lab
-```bash
-$ python3 -m pip install "jupyterlab-kite>=2.0.2"
+$ python3 -m index.py --plot=<plot> # time-series, bifurcations
 ```

@@ -2,7 +2,7 @@
 import click
 
 from src.time_series import time_series
-from src.bifurcations import bifurcations
+from src.bifurcations import run_bifurcations
 
 time_serie = time_series()
 
@@ -12,7 +12,7 @@ def main(plot):
   if plot == "time-series":
     return time_serie.plot()
   if plot == "bifurcations":
-    return bifurcations()
+    return run_bifurcations()
   else:
     print("command not found.")
 

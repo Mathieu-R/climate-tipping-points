@@ -35,7 +35,6 @@ def hopf_polar_coupled(r, x):
 def hopf_polar_coupled_df(r, x):
   return gamma(x) - (3 * (r ** 2))
 
-
 # v is a vector \vec{v}: [x, y, z]
 def fold_hopf(v, phi):
   return np.array([

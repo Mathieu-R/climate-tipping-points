@@ -144,4 +144,3 @@ def run_bifurcations():
   plt.tight_layout()
   plt.show()
 
-run_bifurcations()

@@ -1,15 +1,19 @@
-\documentclass[nosupp]{cup-pan-mod}
+\documentclass[a4paper, 10pt, twocolumn]{article}
 % add "nosupp" to documentclass options if you do not want
 % "supplementary materials" section at the end of the article.
 
 \input{header.tex}
-%\usepackage{lipsum}
+\input{preamble.tex}
 
 \title {Etude de la bifurcation de fold-hopf en tant que point de cascade dans le système climatique}
+\author{
+  \authorstyle{Mathieu Rousseau\textsuperscript{1}}
+  \newline\newline % space before institution
+  %\textsuperscript{1}\institution{Université catholique de Louvain, Louvain-La-Neuve. Belgique.}
+}
+%\author[1] {Mathieu Rousseau}
 
-\author[1] {Mathieu Rousseau}
-
-\affil[1] {Université Catholique de Louvain, Ecole de Physique, Louvain-La-Neuve, Belgique}
+%\affil[1] {Université Catholique de Louvain, Ecole de Physique, Louvain-La-Neuve, Belgique}
 
 % \def\npromotor {Michel Crucifix}
 % \def\ndate {\today}
@@ -19,16 +23,20 @@
 %% Ecole de Physique %%
 %% 2020-2021 %%
 
-\runningauthor{Rousseau}
+%\runningauthor{Rousseau}
 \addbibresource{references.bib}
 
 \begin{document}
+
 \maketitle
+\thispagestyle{firstpage}
 
 \input{sections/section1-abstract.tex}
 \input{sections/section2-intro.tex}
 \input{sections/section3-study.tex}
 \input{sections/section4-conclusion.tex}
+
+\appendix
 \input{sections/section5-annexe.tex}
 
 %\bibliographystyle{agu}

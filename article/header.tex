@@ -1,14 +1,21 @@
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage[T1]{fontenc}
+%----------
+% Packages
+%----------
+
+\usepackage{amsmath} % math
+\usepackage{amssymb} % math
+\usepackage{amsthm} % math
+\usepackage[T1]{fontenc} % font
 \usepackage[french]{babel} % traduction
+\usepackage[svgnames]{xcolor}
 \usepackage{csquotes}
 \usepackage{lipsum}
-%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+\usepackage{microtype} % typography
+\usepackage[hang, small, labelfont=bf, up, textfont=it]{caption} % custom caption under figures
+\usepackage{sectsty} % custom section titles
 %\usepackage{blindtext}
 %\usepackage{bookmark}
-%\usepackage{booktabs} % beautiful tables
+%\usepackage{booktabs} % horizontal rules in tables
 %\usepackage[thicklines]{cancel} % cancel terms in equation
 %\usepackage{color}
 %\usepackage{enumerate}
@@ -23,14 +30,43 @@
 %\usepackage{setspace}
 \usepackage{siunitx}
 \usepackage{silence} % silence warnings
-%\usepackage{systeme} % system of equations
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage{tikz-3dplot}
 \usepackage{units} % Non-stacked fractions and better unit spacing
-%\usepackage{xspace} % prints a trailing space in a smart way.
-\usepackage[backend=biber,style=apa,autocite=inline]{biblatex}
-\DeclareLanguageMapping{french}{french-apa}
+\usepackage{lastpage} % useful to determine the number of pages
+
+% XCharter font
+\usepackage{XCharter}
+
+%-------------
+% GEOMETRY
+%-------------
+
+% adjusting page dimensions
+\usepackage{geometry}
+\geometry{
+  top=1cm,
+  bottom=1.5cm,
+  left=2cm,
+  right=2cm,
+  includehead, % include space for header
+  includefoot % include space for footer
+}
+
+% header and footer
+\usepackage{fancyhdr}
+\pagestyle{fancy} % enable custom header/footer
+
+\renewcommand{\headrulewidth}{0.0pt} % no header rule
+\renewcommand{\footrulewidth}{0.4pt} % little footer rule
+
+% change the font of all sections (Helvetica)
+\allsectionsfont{\usefont{OT1}{phv}{b}{n}}
+
+%---------------
+% TIKZ
+%---------------
 
 % \usetikzlibrary{calc,patterns,angles,quotes}
 
@@ -38,25 +74,37 @@
 % \tikzset{scirc/.style = {fill, circle, inner sep = 0, minimum size = 1.5}}
 % \tikzset{mstate/.style={circle, draw, blue, text=black, minimum width=0.7cm}}
 
-\usepackage{enumitem}
+\usepackage{enumitem} % for customized lists
 \setlist{nosep,after=\vspace{\baselineskip}}
 
-%\pgfplotsset{compat=1.12}
+\pgfplotsset{compat=1.17}
 %\sisetup{locale = FR}
 
-% \usepackage{graphicx}
-% \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-%\graphicspath{{figures/}}
+%-------------
+% FIGURES
+%-------------
+
+% insert figures
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{figures/}}
 
 % Default images settings
 \setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio}
+
+%---------------------------------------------------
+% BUGGY PACKAGES THAT NEED TO BE LOADED AT THE END
+%---------------------------------------------------
 
 % colored hyperlink
 % load hyperref at the end to avoid conflicts
 \usepackage[colorlinks]{hyperref} % colored ref
 % cleverref must be loaded after hyperref
 \usepackage{cleveref} % create ref
-%\usepackage[usenames,svgnames,dvipsnames]{xcolor}
+
+%----------------------------
+% EXPLANATION OF EQUATIONS
+%----------------------------
 
 % conditions for equations
 % https://tex.stackexchange.com/questions/95838/how-to-write-a-perfect-equation-parameters-description
@@ -90,7 +138,7 @@
 \newcommand{\R}{\mb{R}}
 \newcommand{\Z}{\mb{Z}}
 \newcommand{\N}{\mb{N}}
-\newcommand{\C}{\mb{C}}
+%\newcommand{\C}{\mb{C}}
 \newcommand{\dS}{\cdot d\vec{S}}
 \newcommand{\lag}{\mathcal{L}}
 \newcommand{\vd}[1]{\dot{\va{#1}}}
