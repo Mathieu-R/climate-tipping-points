@@ -136,7 +136,7 @@ class time_series():
       data=stochastic_results,
       legend=False,
       ax=ax2
-    ).savefig("lol.png")
+    )
 
     ax2.set_xlabel("$t$")
     ax2.set_ylabel("$x$, $y$, $z$")
