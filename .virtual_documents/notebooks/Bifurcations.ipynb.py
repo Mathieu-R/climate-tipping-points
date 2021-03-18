@@ -85,8 +85,8 @@ def fold_bifurcation(fx, df):
   nphi = 1000
   nx = 10000
   
-  phi_mesh = np.linspace(start=-0.4, stop=0.4, num=nphi)
-  x_mesh = np.linspace(start=-5, stop=5, num=nx)
+  phi_mesh = np.linspace(start=-1, stop=1, num=nphi)
+  x_mesh = np.linspace(start=-1.5, stop=1.5, num=nx)
   
   # algorithm
   for phi in phi_mesh:
@@ -99,12 +99,12 @@ def fold_bifurcation(fx, df):
         # Check its stability (stable or unstable)
         df_value = df(x, phi)
         if df_value > 0:
-          unstable_equ.append([x, phi])
+          unstable_equ.append([phi, x])
         elif df_value < 0:
           if x > 0.:  
-            stable_equ_up.append([x, phi])
+            stable_equ_up.append([phi, x])
           elif x < 0.: 
-            stable_equ_down.append([x, phi])
+            stable_equ_down.append([phi, x])
   
   # [[x1, phi1],...,[xN, phiN]] => [[x1,...,xN], [phi1,...,phiN]]
   unstable_equ = list(zip(*unstable_equ))
@@ -164,7 +164,7 @@ def hopf_bifurcation(fx, df):
   stable_equ_down = list(zip(*stable_equ_down))
   
   # plot
-  ax2.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
+  #ax2.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
   ax2.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
   ax2.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="red", label="ligne stable - osc.")
   ax2.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
