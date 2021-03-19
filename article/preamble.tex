@@ -2,11 +2,24 @@
 % HEADER / FOOTER
 %-----------------
 
+% header and footer
+\usepackage{fancyhdr}
+\pagestyle{fancy} % enable custom header/footer
+
+\renewcommand{\headrulewidth}{0.0pt} % no header rule
+\renewcommand{\footrulewidth}{0.4pt} % little footer rule
+
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}} % Removes the section number from the header when \leftmark is used
+
 % header
-\chead{\textit{\ntitle}}
+\lhead{}
+\chead{\textit{\thetitle}}
+\rhead{}
 
 % footer
-\rfoot{\footnotesize Page \npage\ \\ pageref{LastPage}}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize Page \thepage\ / \pageref{LastPage}}
 
 % page style for the first page
 \fancypagestyle{firstpage}{
@@ -28,7 +41,7 @@
 \pretitle{
 	\vspace{-30pt} % Move the entire title section up
 	\HorRule\vspace{10pt} % Horizontal rule before the title
-	\fontsize{32}{36}\usefont{OT1}{phv}{b}{n}\selectfont % Helvetica
+	\fontsize{22}{26}\usefont{OT1}{phv}{b}{n}\selectfont % Helvetica
 	\color{DarkRed} % Text colour for the title and author(s)
 }
 
@@ -50,7 +63,7 @@
 \newcommand{\authorstyle}[1]{{\large\usefont{OT1}{phv}{b}{n}\color{DarkRed}#1}} % Authors style (Helvetica)
 
 % institution
-%\newcommand{\institution}[1]{{\footnotesize\usefont{OT1}{phv}{m}{sl}\color{Black}#1}} % Institutions style (Helvetica)
+\newcommand{\institution}[1]{{\footnotesize\usefont{OT1}{phv}{m}{sl}\color{Black}#1}} % Institutions style (Helvetica)
 
 %----------
 % ABSTRACT

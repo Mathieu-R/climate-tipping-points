@@ -8,7 +8,6 @@
 \usepackage[T1]{fontenc} % font
 \usepackage[french]{babel} % traduction
 \usepackage[svgnames]{xcolor}
-\usepackage{csquotes}
 \usepackage{lipsum}
 \usepackage{microtype} % typography
 \usepackage[hang, small, labelfont=bf, up, textfont=it]{caption} % custom caption under figures
@@ -54,13 +53,6 @@
   includefoot % include space for footer
 }
 
-% header and footer
-\usepackage{fancyhdr}
-\pagestyle{fancy} % enable custom header/footer
-
-\renewcommand{\headrulewidth}{0.0pt} % no header rule
-\renewcommand{\footrulewidth}{0.4pt} % little footer rule
-
 % change the font of all sections (Helvetica)
 \allsectionsfont{\usefont{OT1}{phv}{b}{n}}
 
@@ -101,6 +93,14 @@
 \usepackage[colorlinks]{hyperref} % colored ref
 % cleverref must be loaded after hyperref
 \usepackage{cleveref} % create ref
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=blue,
+  citecolor=black,
+  urlcolor=cyan
+}
 
 %----------------------------
 % EXPLANATION OF EQUATIONS
