@@ -3,6 +3,7 @@ import click
 
 from src.time_series import time_series
 from src.bifurcations import run_bifurcations
+from src.phase_plot import phase_plot
 
 time_serie = time_series()
 
@@ -11,8 +12,10 @@ time_serie = time_series()
 def main(plot):
   if plot == "time-series":
     return time_serie.plot()
-  if plot == "bifurcations":
+  elif plot == "bifurcations":
     return run_bifurcations()
+  elif plot == "phase-plot":
+    return phase_plot()
   else:
     print("command not found.")
 
