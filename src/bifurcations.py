@@ -12,13 +12,11 @@ from .edo import (fold, fold_df, hopf_polar, hopf_polar_df, hopf_polar_coupled, 
 from .rk4 import rk4
 
 np.set_printoptions(precision=3, suppress=True)
-fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 10))
-fig.suptitle("Diagrammes de bifurcation")
 
 """Leading vs forcing \phi
 
 """
-def fold_bifurcation(fx, df):
+def fold_bifurcation(fx, df, ax):
   stable_equ_up = []
   stable_equ_down = []
   unstable_equ = []
@@ -53,20 +51,20 @@ def fold_bifurcation(fx, df):
   stable_equ_down = list(zip(*stable_equ_down))
 
   # plot
-  ax1.plot(stable_equ_up[0], stable_equ_up[1], color="black", label="ligne stable")
-  ax1.plot(stable_equ_down[0], stable_equ_down[1], color="black", label="ligne stable")
-  ax1.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax1.set_xlabel("$\phi$")
-  ax1.set_ylabel("$x$")
-  ax1.set_xlim(-1, 1)
-  ax1.set_ylim(-1.5, 1.5)
-  ax1.set_title("Fold")
-  ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.plot(stable_equ_up[0], stable_equ_up[1], color="black", label="ligne stable")
+  ax.plot(stable_equ_down[0], stable_equ_down[1], color="black", label="ligne stable")
+  ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax.set_xlabel("$\phi$")
+  ax.set_ylabel("$x$")
+  ax.set_xlim(-1, 1)
+  ax.set_ylim(-1.5, 1.5)
+  ax.set_title("Fold")
+  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 """Following vs coupling \gamma
 
 """
-def hopf_bifurcation(fx, df):
+def hopf_bifurcation(fx, df, ax):
   stable_equ_middle = []
   stable_equ_up = []
   stable_equ_down = []
@@ -106,15 +104,15 @@ def hopf_bifurcation(fx, df):
 
   # plot
   #ax2.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
-  ax2.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
-  ax2.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
-  ax2.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax2.set_xlabel("$\gamma$")
-  ax2.set_ylabel("$r$")
-  ax2.set_xlim(-1, 1)
-  ax2.set_ylim(-1.5, 1.5)
-  ax2.set_title("Hopf")
-  ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax.set_xlabel("$\gamma$")
+  ax.set_ylabel("$r$")
+  ax.set_xlim(-1, 1)
+  ax.set_ylim(-1.5, 1.5)
+  ax.set_title("Hopf")
+  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 """Following vs forcing \phi
   # 1. loop each \phi
@@ -128,8 +126,9 @@ def hopf_bifurcation(fx, df):
   :dp: function -- primary system ODE JAC
   :sr: function -- secondary system ODE
   :ds: function -- secondary system ODE JAC
+  :ax: Axes -- axe to plot
 """
-def fold_hopf_bifurcations(px, dp, sr, ds):
+def fold_hopf_bifurcations(px, dp, sr, ds, ax):
   stable_equ_middle = []
   stable_equ_up = []
   stable_equ_down = []
@@ -176,20 +175,23 @@ def fold_hopf_bifurcations(px, dp, sr, ds):
 
   # plot
   #ax3.plot(stable_equ_middle[0], stable_equ_middle[0], color="black", label="ligne stable")
-  ax3.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
-  ax3.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
-  ax3.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
-  ax3.set_xlabel("$\phi$")
-  ax3.set_ylabel("$r$")
-  ax3.set_xlim(-1, 1)
-  ax3.set_ylim(-1.5, 1.5)
-  ax3.set_title("Fold-Hopf")
-  ax3.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
+  ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax.set_xlabel("$\phi$")
+  ax.set_ylabel("$r$")
+  ax.set_xlim(-1, 1)
+  ax.set_ylim(-1.5, 1.5)
+  ax.set_title("Fold-Hopf")
+  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 def run_bifurcations():
-  fold_bifurcation(fold, fold_df)
-  hopf_bifurcation(hopf_polar, hopf_polar_df)
-  fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df)
+  fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 10))
+  fig.suptitle("Diagrammes de bifurcation")
+
+  fold_bifurcation(fold, fold_df, ax1)
+  hopf_bifurcation(hopf_polar, hopf_polar_df, ax2)
+  fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
 
   plt.tight_layout()
   plt.show()

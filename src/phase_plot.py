@@ -1,13 +1,13 @@
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 from consts import (b1, b2, c1, c2, t_init, t_fin, time_step, x0, y0, z0)
 from .rk4 import rk4
 
-def hopf(y, z, gam):
+def hopf(v, gam):
   return np.array([
-    b1*z + b2*(gam - (y**2 + z**2))*y,
-    c1*y + c2*(gam - (y**2 + z**2))*z
+    b1*v[1] + b2*(gam - (v[0]**2 + v[1]**2))*v[0],
+    c1*v[0] + c2*(gam - (v[0]**2 + v[1]**2))*v[1]
   ])
 
 def solve(solver, edo, initial, dt, nt, gam):
@@ -26,21 +26,26 @@ def phase_plot():
   nt = int((t_fin - t_init) / dt)
   gam = 1.
 
-  initial = [x0, y0, z0]
+  initial = [y0, z0]
 
-  y_mesh = np.linspace(start=-3, stop=3, num=nt)
-  z_mesh = np.linspace(start=-3, stop=3, num=nt)
+  fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+  y_mesh = np.linspace(start=-3, stop=3, num=100)
+  z_mesh = np.linspace(start=-3, stop=3, num=100)
 
   # meshgrid useful to evaluate function on a grid
   Y, Z = np.meshgrid(y_mesh, z_mesh)
-  print(Y, Z)
 
-  f = hopf(Y, Z, gam)
-  print(f)
-  #plt.streamplot(Y, Z, f[0,:], f[1,:], color="#BBBBBB")
+  f = hopf([Y, Z], gam)
+  ax.streamplot(Y, Z, f[0,:], f[1,:], color="#BBBBBB")
 
-  #results = solve(rk4, hopf, initial, dt, nt, gam)
-  #plt.plot(results[0,:], results[1,:], 'blue')
-  #plt.title("Portrait de Phase - Hopf Bifurcation")
-  #plt.xlabel('x')
-  #plt.ylabel('y')
+  results = solve(rk4, hopf, initial, dt, nt, gam)
+
+  ax.plot(results[:,0], results[:,1], 'blue')
+  ax.set_title("Portrait de phase --- $\gamma = 1$")
+  ax.set_xlabel('x')
+  ax.set_ylabel('y')
+
+  plt.tight_layout()
+  plt.savefig("phase-plot.pdf", dpi=300)
+  plt.show()
