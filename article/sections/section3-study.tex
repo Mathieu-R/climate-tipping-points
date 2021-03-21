@@ -1,5 +1,6 @@
 \section{Bifurcation de fold-hopf}
 
+Pour qu'un système soit qualifié "d'élément de bascule", il doit être possible d'y identifié un paramètre de forçage $\phi$ pour lequel il existe une certaine valeur crituque $\phi_c$ tel qu'une petite perturbation $\delta \phi > 0$ induise un changement qualitatif dans la structure du système.
 Cette bifurcation apparait dans un système d'équations différentielles ordinaires (EDOs) constitué à la fois d'une EDO à 1 dimension que l'on appellera système primaire et d'un sous-système d'EDOs à 2 dimensions que l'on appellera système secondaire. De ce premier système surgit une bifurcation de type \emph{"Fold"} tandis que du second système surgit une bifurcation de type \emph{"Hopf"}.
 
 \begin{equation} \label{eq:fold-hopf}
@@ -28,7 +29,7 @@ Cette équation fait apparaitre une bifurcation fold qui est une combinaison de 
 
 et a la particularité de présenter un phénomène dit \emph{d'hystérésis} c'est à dire que le système se comporte à la fois selon la valeur courante du paramètre de forçage mais également selon son historique.
 
-% TODO : expliquer hysteresis
+% TODO : expliquer hysteresis (fait je crois)
 
 Le système a un ou plusieurs points d'équilibres en $x = x_0$ lorsque $f_{\phi}(x_0) = 0$. On peut voir cette EDO comme la somme de 2 courbes, $f_1(x) = a_1 x^3$ et $f_2(x) = - (a_2x + \phi_c)$. Les équilibres du système correspondent aux points d'intersection de $f_1$ et $f_2$. Si l'on trace ces 2 fonctions, on remarque la création de 2 équilibres lorsque la droite $f_2$ est tangente à la fonction cubique $f_1$. On peut de par cette observation facilement repérer nos points d'équilibres
 
@@ -45,18 +46,18 @@ On peut mieux se rendre compte de la dynamique du système en traçant son diagr
 
 % TODO: figure - fold bifurcation diagram.
 
-Lorsqu'on approche $\phi_c$ par des valeurs $\phi > \phi_c$, le système est dans un état stable. Une fois que l'on atteint $-\phi_c$ (dans le sytème climatique il pourrait s'agit d'une température critique, une concentration de CO2 critique,\dots), le système va subitement changer d'état dû à sa bistabilité afin d'atteindre un nouvel état stable. Si le paramètre de forçage continue de baisser, le système reste stable. Par contre si un quelconque phénomène arrivait à réaugmenter la valeur de $\phi$ jusqu'à la valeur $+\phi_c$, le système repasserait dans l'état stable intiale. On voit que réaugmenter la valeur du paramètre de forçage la transition critique faite ne fait pas directement repasser le système dans son état initial. Il s'agit bien là d'un phénomène d'hystérésis. Un raisonnement analogue peut être fait si l'on approche $-\phi_c$ par des valeurs $\phi < -\phi_c$. Toutefois, entre ces 2 branches stables existent une branche instable. Dès lors lorsque la valeur du paramètre de forçage se trouve dans l'intervalle critique, le système se verra dans un des 2 états dépendant des conditions initiales. Il est possible que des conditions initiales fassent que le système se situe sur la courbe instable mais du fait de la nature de cet équilibre, une micro-perturbation dans les conditions initiales amènerait le système à être attire vers une des branches stables.
+Lorsqu'on approche $\phi_c$ par des valeurs $\phi > \phi_c$, le système est dans un état stable. Une fois que l'on atteint $-\phi_c$ (dans le sytème climatique il pourrait s'agit d'une température critique, une concentration de CO2 critique,\dots), le système va subitement changer d'état dû à sa bistabilité afin d'atteindre un nouvel état stable. Si le paramètre de forçage continue de baisser, le système reste stable. Par contre si un quelconque phénomène arrivait à réaugmenter la valeur de $\phi$ jusqu'à la valeur $+\phi_c$, le système repasserait dans l'état stable intiale. On voit que réaugmenter la valeur du paramètre de forçage la transition critique faite ne fait pas directement repasser le système dans son état initial. Il s'agit bien là d'un phénomène d'hystérésis. Un raisonnement analogue peut être fait si l'on approche $-\phi_c$ par des valeurs $\phi < -\phi_c$. Toutefois, entre ces 2 branches stables existent une branche instable. Dès lors, lorsque la valeur du paramètre de forçage se trouve dans l'intervalle critique, le système se verra dans un des 2 états dépendant des conditions initiales. Il est possible que des conditions initiales fassent que le système se situe sur la courbe instable mais du fait de la nature de cet équilibre, une micro-perturbation dans les conditions initiales amènerait le système à être attire vers une des branches stables.
 
 % TODO: expliquer hysteresis dans ce diagramme
 
 \subsection{Bifurcation hopf}
 
-Considérons les EDOs pour $\dot{y}$ et $\dot{z}$ et remplaçons le paramètre de couplage $\gamma(x)$ par un paramètre de forçage $\phi$.
+Considérons les EDOs pour $\dot{y}$ et $\dot{z}$ et remplaçons le paramètre de couplage $\gamma(x)$ par un paramètre de forçage $\gamma$.
 
 \begin{equation} \label{eq:hopf}
   \begin{cases}
-    \dot{y} = b_1z + b_2(\phi - (y^2 + z^2))y \equiv f_1 \\
-    \dot{z} = c_1y + c_2(\phi - (y^2 + z^2))z \equiv f_2
+    \dot{y} = b_1z + b_2(\gamma - (y^2 + z^2))y \equiv f_{1,\gamma}(y,z) \\
+    \dot{z} = c_1y + c_2(\gamma - (y^2 + z^2))z \equiv f_{2, \gamma}(y,z)
   \end{cases}
 \end{equation}
 
@@ -68,8 +69,8 @@ Sans perte de généralité, posons $b_1 = b_2 = 1$, $c_1 = -1$ et $c_2 = 1$.
 \begin{equation}
   df(\vb{p}) =
   \begin{pmatrix}
-    \phi & 1 \\
-    -1 & \phi
+    \gamma & 1 \\
+    -1 & \gamma
   \end{pmatrix}
 \end{equation}
 
@@ -78,20 +79,20 @@ Sans perte de généralité, posons $b_1 = b_2 = 1$, $c_1 = -1$ et $c_2 = 1$.
 Afin de mieux comprendre la façon de se comporte notre système, on peut passer en coordonnées polaires $(r, \theta)$
 \begin{equation}
   \begin{cases}
-    \dot{r} = \phi r - r^3 \\
+    \dot{r} = \gamma r - r^3 \\
     \dot{\theta} = -1
   \end{cases}
 \end{equation}
 
-L'analyse graphique de l'équation pour $\dot{r}$ nous montre la présence d'un équilibre stable en $r = 0$ pour $\phi \leq 0$ par contre lorsque $\phi > 0$, l'équilibre en $r = 0$ devient instable et il apparait un nouvel attracteur en $r = \sqrt{\phi}$. Il y a à la fois changement dans la nature d'un équilibre et création d'un autre équilibre. On comprend donc que lorsque $\phi > 0$ il apparait un cycle limite de rayon $r = \sqrt{\phi}$ où toutes les solutions partant en dehors de ce cycle y convergent. Ce cycle limite stable apparait en une valeur de $\phi$ supérieure à celle du point d'équilibre instable. On nomme alors cette bifurcation une bifurcation de hopf \emph{supercritique}.
+L'analyse graphique de l'équation pour $\dot{r}$ nous montre la présence d'un équilibre stable en $r = 0$ pour $\gamma \leq 0$ par contre lorsque $\gamma > 0$, l'équilibre en $r = 0$ devient instable et il apparait un nouvel attracteur en $r = \sqrt{\gamma}$. Il y a à la fois changement dans la nature d'un équilibre et création d'un autre équilibre. On comprend donc que lorsque $\gamma > 0$ il apparait un cycle limite de rayon $r = \sqrt{\gamma}$ où toutes les solutions partant en dehors de ce cycle y convergent. Ce cycle limite stable apparait en une valeur de $\gamma$ supérieure à celle du point d'équilibre instable. On nomme alors cette bifurcation une bifurcation de hopf \emph{supercritique}.
 
 L'équation pour $\dot{\theta}$ nous montre que les trajectoires ont un sens horloger (autour de l'origine).
 
 L'équation paramétrique de ce cycle limite est donnée par,
 \begin{equation}
   \begin{cases}
-    y &= \sqrt{\phi} \sin(\theta_0 - t) \\
-    z &= \sqrt{\phi} \cos(\theta_0 - t)
+    y &= \sqrt{\gamma} \sin(\theta_0 - t) \\
+    z &= \sqrt{\gamma} \cos(\theta_0 - t)
   \end{cases}
 \end{equation}
 
@@ -101,9 +102,16 @@ L'équation paramétrique de ce cycle limite est donnée par,
 
 \subsection{Bifurcation fold-hopf}
 
-Le système que nous étudions présente un mix de ces 2 bifurcations. L'équation pour $\dot{x}$ donne lieu à une bifurcation fold tel que nous l'avons vu à la section (\ref{sec:fold}). L'équation pour $\dot{y}$ et $\dot{z}$ est un peu différente dans le sens où nous avons remplacé le paramètre de forçage par un paramètre de couplage $\gamma(x)$ qui dépend donc de la première équation.
+Le système que nous étudions présente un mix de ces 2 bifurcations. L'équation pour $\dot{x}$ donne lieu à une bifurcation fold tel que nous l'avons vu à la section (\ref{sec:fold}). L'équation pour $\dot{y}$ et $\dot{z}$ est un peu différente dans le sens où nous avons remplacé le paramètre de forçage par un paramètre de couplage $\gamma(x)$ qui dépend donc de la première équation. Par ailleurs, nous supposerons que $\phi = \phi(t)$ varie lentement en fonction du temps.
 
 % BIFURCATION
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{figures/bifurcations.pdf}
+  \caption{(a) Bifurcation fold. (b) Bifurcation hopf. (c) Bifurcation fold-hopf.}
+  \label{fig:bifurcations}
+\end{figure}
 
 Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmente lentement le paramètre de forçage $\phi$ dans la branche basse du système primaire, une fois atteint une valeur $-\phi_c$, le système représenté par l’EDO en $\dot{x}$ entre dans son régime bistable où les solutions convergeront vers l’une des 2 branches stables du système dépendant de leurs conditions initiales. Une fois atteint $+\phi_c$, on quitte le régime bistable et toutes les solutions convergerons vers la branche stable supérieure. Dès lors il serait possible de repasser en régime bistable voir de rebifurquer vers la branche stable inférieure si le paramètre de forçage se mettait tout d’un coup à baisser (il apparaitrait alors un phénomène d’hystérésis). Une fois passé $+\phi_c$, la valeur de $x$ augmente de manière conséquente comparé à son augmentation négligeable lorsque $+\phi$ se situe dans l’intervalle $]-\infty, +\phi_c[$ ce qui a pour conséquence d’augmenter le paramètre de couplage $\gamma(x)$ présent dans les EDOs pour $\dot{y}$ et $\dot{z}$.  Le système génère alors par cascade un cycle limite caractérisant des solutions oscillantes où toutes les solutions convergent vers ce cycle peut importe leurs conditions initiales.
 
@@ -111,12 +119,17 @@ Un cas où une telle bifurcation pourrait éventuellement arriver serait le cas 
 
 % SERIE TEMPORELLE
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{figures/time-series.pdf}
+  \caption{(a) Série temporelle sans terme stochastique. (b) Série temporelle contenant un ensemble de 100 simulations avec un terme stochastique}
+  \label{fig:time-series}
+\end{figure}
 
 
 % SERIE TEMPORELLE STOCHASTIQUE
 
-On a vu que la transition dans le système secondaire est générée par cascade une fois que le système primaire à passé son point critique $\phi_c$. En particulier nous avons vu que la transition de ce dernier induit un "grand saut" dans la variable $x$ ce qui a pour conséquence de fortement augmenté le paramètre de couplage et donc de pousser le système secondaire à passer son point critique. Tout cela rend le système secondaire fortement dépendent de la bifurcation du système primaire. Au préalable de cette bifurcation, le système secondaire est peu dépendant du système primaire et plus sensible au bruit.
-On considère dès à présent le système (\ref{eq:fold-hopf}) où nous ajoutons un terme stochastique $\xi_i$ avec $i \in \{x, y, z\}$. Il s'agit en réalité de bruit blanc gaussien.
-
-Un système dynamique stochastique est caractérisé par un ralentissement de ses fluctuations lorsqu'un point critique est approché (figure \ref{fig:stochastic-time-serie}) ce qui a pour conséquence d'augmenter l'autocorrélation et la variance.
+On a vu que la transition dans le système secondaire est générée par cascade une fois que le système primaire à passé son point critique $\phi_c$. En particulier nous avons vu que la transition de ce dernier induit un "grand saut" dans la variable $x$ ce qui a pour conséquence de fortement augmenté le paramètre de couplage et donc de pousser le système secondaire à passer son point critique. Tout cela rend le système secondaire fortement dépendent de la bifurcation du système primaire.
+On peut dès à présent considèrer le système (\ref{eq:fold-hopf}) où nous ajoutons un terme stochastique $\xi_i$ avec $i \in \{x, y, z\}$. Il s'agit en réalité de bruit blanc gaussien. Ce bruit peut également pousser le système à passer un point de bifurcation.
+Au préalable de cette bifurcation, le système secondaire est peu dépendant du système primaire et plus sensible au bruit. En effet, un système dynamique stochastique est caractérisé par un ralentissement de ses fluctuations lorsqu'un point critique est approché (figure \ref{fig:time-series}) ce qui a pour conséquence d'augmenter l'autocorrélation, la variance et l'asymétrie. Ceci est particulièrement vrai pour la bifurcation fold dû à son irreversibilité (\emph{hystérésis}) et son changement d'état brusque. On remarque qu'au démarrage de la série temporelle stochastique, le système secondaire atteint directement son point d'équilibre $(x,y) = (0,0)$ tandis que le système primaire est dans un état stable. Alors que le système primaire approche son point de bascule via le forçage $\phi(t)$, sa variance augmente. Par la suite lorsqu'il bascule, le bruit induit par cette bascule pousse le système secondaire à passer son point critique et à basculer directement.
 

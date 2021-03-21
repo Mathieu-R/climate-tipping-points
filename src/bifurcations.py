@@ -193,7 +193,7 @@ def run_bifurcations():
   hopf_bifurcation(hopf_polar, hopf_polar_df, ax2)
   fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
 
-  plt.savefig("../article/figures/bifurcations.pdf", dpi=300)
+  plt.savefig("article/figures/bifurcations.pdf", dpi=300)
 
   plt.tight_layout()
   plt.show()

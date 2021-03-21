@@ -53,7 +53,7 @@ class time_series():
       v_mesh[t + 1] = v_mesh[t] + solver(edo, v_mesh[t], dt, self.phi)
 
       # increase forcing parameter
-      if self.phi <= 50.0: self.phi += 0.001
+      if self.phi <= 50.0: self.phi += 0.002
 
     # reset forcing parameter
     self.phi = -2
@@ -133,7 +133,7 @@ class time_series():
       x="t",
       y="variables",
       hue="position",
-      palette=("red", "gold", "black"),
+      palette=("black", "red", "gold"),
       data=stochastic_results,
       legend=False,
       ax=ax2
@@ -146,7 +146,7 @@ class time_series():
     ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     ax2.set_title("Stochastique")
 
-    plt.savefig("../article/figures/time-series.pdf", dpi=300)
+    plt.savefig("article/figures/time-series.pdf", dpi=300)
 
     plt.tight_layout()
     plt.show()
