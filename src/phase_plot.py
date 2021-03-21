@@ -47,5 +47,5 @@ def phase_plot():
   ax.set_ylabel('y')
 
   plt.tight_layout()
-  plt.savefig("phase-plot.pdf", dpi=300)
+  plt.savefig("../article/figures/phase-plot.pdf", dpi=300)
   plt.show()

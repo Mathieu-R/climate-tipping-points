@@ -133,6 +133,7 @@ class time_series():
       x="t",
       y="variables",
       hue="position",
+      palette=("red", "gold", "black"),
       data=stochastic_results,
       legend=False,
       ax=ax2
@@ -145,7 +146,7 @@ class time_series():
     ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     ax2.set_title("Stochastique")
 
-    plt.savefig("stochastic", dpi=600)
+    plt.savefig("../article/figures/time-series.pdf", dpi=300)
 
     plt.tight_layout()
     plt.show()
