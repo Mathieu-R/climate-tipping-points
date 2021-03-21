@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 from consts import (b1, b2, c1, c2, t_init, t_fin, time_step, x0, y0, z0)
 from .rk4 import rk4
 
+from src.utils.utils import set_size
+
+plt.style.use("./style/style.mplstyle")
+
 def hopf(v, gam):
   return np.array([
     b1*v[1] + b2*(gam - (v[0]**2 + v[1]**2))*v[0],
@@ -28,7 +32,7 @@ def phase_plot():
 
   initial = [y0, z0]
 
-  fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+  fig, ax = plt.subplots(1, 1, figsize=(set_size(400)))
 
   y_mesh = np.linspace(start=-3, stop=3, num=100)
   z_mesh = np.linspace(start=-3, stop=3, num=100)
@@ -46,6 +50,5 @@ def phase_plot():
   ax.set_xlabel('x')
   ax.set_ylabel('y')
 
-  plt.tight_layout()
   plt.savefig("article/figures/phase-plot.pdf", dpi=300)
   plt.show()

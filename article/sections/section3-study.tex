@@ -106,25 +106,25 @@ Le système que nous étudions présente un mix de ces 2 bifurcations. L'équati
 
 % BIFURCATION
 
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
   \centering
-  \includegraphics{figures/bifurcations.pdf}
+  \includegraphics[width=\textwidth]{figures/bifurcations.pdf}
   \caption{(a) Bifurcation fold. (b) Bifurcation hopf. (c) Bifurcation fold-hopf.}
   \label{fig:bifurcations}
-\end{figure}
+\end{figure*}
 
 Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmente lentement le paramètre de forçage $\phi$ dans la branche basse du système primaire, une fois atteint une valeur $-\phi_c$, le système représenté par l’EDO en $\dot{x}$ entre dans son régime bistable où les solutions convergeront vers l’une des 2 branches stables du système dépendant de leurs conditions initiales. Une fois atteint $+\phi_c$, on quitte le régime bistable et toutes les solutions convergerons vers la branche stable supérieure. Dès lors il serait possible de repasser en régime bistable voir de rebifurquer vers la branche stable inférieure si le paramètre de forçage se mettait tout d’un coup à baisser (il apparaitrait alors un phénomène d’hystérésis). Une fois passé $+\phi_c$, la valeur de $x$ augmente de manière conséquente comparé à son augmentation négligeable lorsque $+\phi$ se situe dans l’intervalle $]-\infty, +\phi_c[$ ce qui a pour conséquence d’augmenter le paramètre de couplage $\gamma(x)$ présent dans les EDOs pour $\dot{y}$ et $\dot{z}$.  Le système génère alors par cascade un cycle limite caractérisant des solutions oscillantes où toutes les solutions convergent vers ce cycle peut importe leurs conditions initiales.
 
-Un cas où une telle bifurcation pourrait éventuellement arriver serait le cas où un effondrement de la circulation méridionale de retournement de l'Atlantique (AMOC)\footnote{Désigne l'ensemble des courants océaniques (Gulf stream, circulation thermohaline,...) régissant les échanges de chaleur entre l'équateur et les pôles.} entrainerait un renforcement ou un affaiblissement du phénomène El-Niño\footnote{Phénomène climatique caractérisé par des températures anormalement élevées de l'eau dans la partie Est de l'océan Pacifique-Sud} \cite{timmermann_influence_2007}. Ici, l'effondrement de l'AMOC correspond au passage de la branche basse à la branche haute de dans la bifurcation fold (figure \ref{eq:bifurcation}a). Tandis le renforcement / affaiblissement de El-Niño correspond aux 2 branches oscillatoires dans la bifurcation hopf (figure \ref{eq:bifurcation}b). Le retournement est lui forcé par le flux d'eau douce et donc ce dernier correspond au paramètre de forçage $\phi$ tandis que le couplage avec l'Océan Pacifique est assuré par les alizés\footnote{Vent régulier des régions intertropicales soufflant d'Est en Ouest de façon régulière à partir des hautes pressions subtropicales vers les basses pressions équatoriales} et correspond au paramètre $\gamma$.
+Un cas où une telle bifurcation pourrait éventuellement arriver serait le cas où un effondrement de la circulation méridionale de retournement de l'Atlantique (AMOC)\footnote{Désigne l'ensemble des courants océaniques (Gulf stream, circulation thermohaline,...) régissant les échanges de chaleur entre l'équateur et les pôles.} entrainerait un renforcement ou un affaiblissement du phénomène El-Niño\footnote{Phénomène climatique caractérisé par des températures anormalement élevées de l'eau dans la partie Est de l'océan Pacifique-Sud} \cite{timmermann_influence_2007}. Ici, l'effondrement de l'AMOC correspond au passage de la branche basse à la branche haute de dans la bifurcation fold (figure \ref{fig:bifurcation}a). Tandis le renforcement / affaiblissement de El-Niño correspond aux 2 branches oscillatoires dans la bifurcation hopf (figure \ref{fig:bifurcation}b). Le retournement est lui forcé par le flux d'eau douce et donc ce dernier correspond au paramètre de forçage $\phi$ tandis que le couplage avec l'Océan Pacifique est assuré par les alizés\footnote{Vent régulier des régions intertropicales soufflant d'Est en Ouest de façon régulière à partir des hautes pressions subtropicales vers les basses pressions équatoriales} et correspond au paramètre $\gamma$.
 
 % SERIE TEMPORELLE
 
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
   \centering
   \includegraphics{figures/time-series.pdf}
   \caption{(a) Série temporelle sans terme stochastique. (b) Série temporelle contenant un ensemble de 100 simulations avec un terme stochastique}
   \label{fig:time-series}
-\end{figure}
+\end{figure*}
 
 
 % SERIE TEMPORELLE STOCHASTIQUE

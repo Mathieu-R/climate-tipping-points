@@ -2,6 +2,10 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({
+  'font.size': 9
+})
+
 plt.style.use("seaborn-whitegrid")
 
 #from tqdm import tqdm # progress bar
@@ -195,6 +199,7 @@ def run_bifurcations():
 
   plt.savefig("article/figures/bifurcations.pdf", dpi=300)
 
-  plt.tight_layout()
+  # tight_layout() not recommended for figure that go in article.
+  #plt.tight_layout()
   plt.show()
 
