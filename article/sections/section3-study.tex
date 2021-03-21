@@ -16,7 +16,7 @@ Alors que nous nous approchons de la valeur critique de la bifurcation que nous 
 \subsection{Bifurcation fold} \label{sec:fold}
 
 Considérons la première EDO,
-\begin{equation}
+\begin{equation} \label{eq:fold}
   \dot{x}(t) = a_1 x^3 + a_2 x + \phi \equiv f_{\phi}(x),  \quad a_1, a_2 \in \R
 \end{equation}
 
@@ -53,7 +53,7 @@ Lorsqu'on approche $\phi_c$ par des valeurs $\phi > \phi_c$, le système est dan
 
 Considérons les EDOs pour $\dot{y}$ et $\dot{z}$ et remplaçons le paramètre de couplage $\gamma(x)$ par un paramètre de forçage $\phi$.
 
-\begin{equation}
+\begin{equation} \label{eq:hopf}
   \begin{cases}
     \dot{y} = b_1z + b_2(\phi - (y^2 + z^2))y \equiv f_1 \\
     \dot{z} = c_1y + c_2(\phi - (y^2 + z^2))z \equiv f_2
@@ -112,5 +112,5 @@ Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmen
 % SERIE TEMPORELLE STOCHASTIQUE
 
 On a vu que la transition dans le système secondaire est générée par cascade une fois que le système primaire à passé son point critique $\phi_c$. En particulier nous avons vu que la transition de ce dernier induit un "grand saut" dans la variable $x$ ce qui a pour conséquence de fortement augmenté le paramètre de couplage et donc de pousser le système secondaire à passer son point critique. Tout cela rend le système secondaire fortement dépendent de la bifurcation du système primaire. Au préalable de cette bifurcation, le système secondaire est peu dépendant du système primaire et plus sensible au bruit.
-On considère dès à présent le système (\ref{eq:fold-hopf}) où nous ajoutons un terme stochastique $\xi_i$ avec $i \in {x, y, z}$. Il s'agit en réalité de bruits blancs gaussiens.
+On considère dès à présent le système (\ref{eq:fold-hopf}) où nous ajoutons un terme stochastique $\xi_i$ avec $i \in \{x, y, z\}$. Il s'agit en réalité de bruit blanc gaussien.
 
