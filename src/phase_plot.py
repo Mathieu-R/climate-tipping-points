@@ -6,7 +6,7 @@ from .rk4 import rk4
 
 from src.utils.utils import set_size
 
-plt.style.use("./style/style.mplstyle")
+plt.style.use("src/style/style.mplstyle")
 
 def hopf(v, gam):
   return np.array([
@@ -32,7 +32,7 @@ def phase_plot():
 
   initial = [y0, z0]
 
-  fig, ax = plt.subplots(1, 1, figsize=(set_size(400)))
+  fig, ax = plt.subplots(1, 1, figsize=(set_size(width="column-size")))
 
   y_mesh = np.linspace(start=-3, stop=3, num=100)
   z_mesh = np.linspace(start=-3, stop=3, num=100)

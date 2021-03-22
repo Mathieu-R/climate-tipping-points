@@ -1,11 +1,13 @@
 axes.axisbelow: True
 grid.linewidth: 1.2
-line.linewidth: 1
+lines.linewidth: 1
 
 text.usetex: True
+axes.labelsize: 10
+font.size: 10
+font.family: 'serif'
+
+legend.fontsize: 8
 xtick.labelsize: 8
 ytick.labelsize: 8
-axes.labelsize: 8
 
-font.size: 9
-font.family: 'serif'

@@ -2,11 +2,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.rcParams.update({
-  'font.size': 9
-})
-
-plt.style.use("seaborn-whitegrid")
+from src.utils.utils import set_size
 
 #from tqdm import tqdm # progress bar
 #from scipy.optimize import fsolve # find roots of equation
@@ -15,6 +11,7 @@ from consts import (x0, y0, z0, r0, a1, a2, b1, b2, c1, c2, t_init, t_fin, time_
 from .edo import (fold, fold_df, hopf_polar, hopf_polar_df, hopf_polar_coupled, hopf_polar_coupled_df)
 from .rk4 import rk4
 
+plt.style.use("src/style/style.mplstyle")
 np.set_printoptions(precision=3, suppress=True)
 
 """Leading vs forcing \phi
@@ -62,8 +59,8 @@ def fold_bifurcation(fx, df, ax):
   ax.set_ylabel("$x$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  ax.set_title("Fold")
-  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  #ax.set_title("Fold")
+  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 """Following vs coupling \gamma
 
@@ -115,8 +112,8 @@ def hopf_bifurcation(fx, df, ax):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  ax.set_title("Hopf")
-  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  #ax.set_title("Hopf")
+  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 """Following vs forcing \phi
   # 1. loop each \phi
@@ -186,16 +183,20 @@ def fold_hopf_bifurcations(px, dp, sr, ds, ax):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  ax.set_title("Fold-Hopf")
-  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  #ax.set_title("Fold-Hopf")
+  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 def run_bifurcations():
-  fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(15, 10))
+  fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))))
   fig.suptitle("Diagrammes de bifurcation")
 
   fold_bifurcation(fold, fold_df, ax1)
   hopf_bifurcation(hopf_polar, hopf_polar_df, ax2)
   fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
+
+  ax1.text(-0.1, 1.1, "a", transform=ax1.transAxes, size=10, weight="bold")
+  ax2.text(-0.1, 1.1, "b", transform=ax2.transAxes, size=10, weight="bold")
+  ax3.text(-0.1, 1.1, "c", transform=ax3.transAxes, size=10, weight="bold")
 
   plt.savefig("article/figures/bifurcations.pdf", dpi=300)
 
