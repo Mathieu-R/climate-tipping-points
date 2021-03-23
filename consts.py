@@ -1,3 +1,5 @@
+import math
+
 # 1D EDO for Fold bifurcation paramaters
 a1 = -1
 a2 = 1
@@ -16,12 +18,16 @@ x0 = -0.5
 y0 = 1.0
 z0 = -1.0
 
-r0 = 5.0
+r0 = math.sqrt(2) # 5.0
 
 # time range
 t_init = 0
 t_fin = 500
-time_step = 0.01
+time_step = 0.2
+
+# phi_factor
+phi_factor = 0.008
+
 
 # gaussian noise parameters
 mean = 0.0
@@ -37,5 +43,6 @@ c2_stoch = 1
 gamma1_stoch = -0.2
 gamma2_stoch = 0.3
 time_step_stoch = 0.1
+phi_factor_stoch = 0.002
 
 TRESHOLD = 10**-4

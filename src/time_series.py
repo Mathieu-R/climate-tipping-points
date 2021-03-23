@@ -7,14 +7,14 @@ import seaborn as sns
 from tqdm import tqdm
 from scipy.stats import median_abs_deviation
 
-from .edo import (fold_hopf)
+from .edo import (fold_hopf, gamma)
 from .edo_stoch import (fold_hopf_stoch)
 from .rk4 import rk4
 from .euler import forward_euler_maruyama
 
 from src.utils.utils import set_size
 
-from consts import (x0, y0, z0, t_init, t_fin, time_step, time_step_stoch)
+from consts import (x0, y0, z0, t_init, t_fin, time_step, time_step_stoch, phi_factor, phi_factor_stoch)
 
 plt.style.use("science")
 np.set_printoptions(precision=3, suppress=True)
@@ -24,7 +24,7 @@ class time_series():
     # initial conditions
     self.initial_conditions = np.array([[x0, y0, z0]])
     # forcing parameter
-    self.phi = -2
+    self.phi = -1
     # time
     self.t0 = t_init
     self.tN = t_fin
@@ -32,6 +32,10 @@ class time_series():
     self.niter = 100
     # legend
     self.legends = ["$x$ (leading)", "$y$ (following)", "$z$ (following)"]
+
+  def phi_time(self, t):
+    # stabilize phi parameter for the first 100 a.u so the bifurcation does not start directly.
+    return min(-0.7 + 0.05 * max(t - 100, 0), 0.4)
 
   """ Plot a temporal serie
 
@@ -42,7 +46,7 @@ class time_series():
 
   :return: ndarray -- [[x0, y0, z0], ..., [x{N-1}, y{N-1}, z{N-1}]]
   """
-  def solve(self, solver, edo, dt, nt):
+  def solve(self, solver, edo, dt, nt, phi_factor):
     # [x0, y0, z0]
     #v = self.initial_conditions[0]
 
@@ -52,15 +56,21 @@ class time_series():
     v_mesh[0] = self.initial_conditions[0]
     #print(edo, dt)
 
-    for t in range(0, nt - 1):
-      v_mesh[t + 1] = v_mesh[t] + solver(edo, v_mesh[t], dt, self.phi)
+    # phi mesh -- stock the forcing parameter function of time for plotting
+    phi_mesh = np.ones((nt, 1))
 
-      # increase forcing parameter
-      if self.phi <= 50.0: self.phi += 0.002
+    for k in range(0, nt - 1):
+      t = k * dt
+      v_mesh[k + 1] = v_mesh[k] + solver(edo, v_mesh[k], dt, self.phi)
+
+      # e.g. stochastic: phi(t) = 0.002t
+      #print(self.phi_time(t))
+      phi_mesh[k + 1] = self.phi_time(t)
+      self.phi = self.phi_time(t) #phi_factor * t
 
     # reset forcing parameter
-    self.phi = -2
-    return v_mesh
+    self.phi = -1
+    return v_mesh, phi_mesh
 
   def basic(self):
     dt = time_step
@@ -68,8 +78,8 @@ class time_series():
     time_mesh_basic = np.linspace(start=self.t0, stop=self.tN, num=nt)
 
     # [ [x0, y0, z0], [x1, y1, z1], ..., [xN, yN, zN] ]
-    results = self.solve(rk4, fold_hopf, dt, nt)
-    return time_mesh_basic, results
+    results, phi_mesh = self.solve(rk4, fold_hopf, dt, nt, phi_factor)
+    return time_mesh_basic, results, phi_mesh
 
   def stochastic_seaborn(self):
     dt = time_step_stoch
@@ -81,7 +91,7 @@ class time_series():
     stochastic_results = np.ones((self.niter, nt, 4))
     # compute a lot of simulations
     for i in tqdm(range(0, self.niter)):
-      results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt)
+      results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt, phi_factor_stoch)
       # concatenate (x, y, z) columns with (t) column
       results = np.concatenate((reshaped_time_mesh_stoch.T, results), axis=1)
       stochastic_results[i] = results
@@ -115,7 +125,7 @@ class time_series():
     stochastic_results = np.ones((self.niter, nt, 3))
     # compute a lot of simulations
     for i in tqdm(range(0, self.niter)):
-      results = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt)
+      results, phi_mesh = self.solve(forward_euler_maruyama, fold_hopf_stoch, dt, nt, phi_factor_stoch)
       stochastic_results[i] = results
 
     # compute the mean
@@ -129,7 +139,7 @@ class time_series():
 
 
   def plot(self):
-    time_mesh_basic, basic_results = self.basic()
+    time_mesh_basic, basic_results, phi_mesh = self.basic()
     time_mesh_stoch, mean, deviation = self.stochastic()
 
     # 2 lines, 1 column
@@ -139,9 +149,14 @@ class time_series():
     ax1.plot(time_mesh_basic, basic_results[:,0], color="black")
     ax1.plot(time_mesh_basic, basic_results[:,1], color="red")
     ax1.plot(time_mesh_basic, basic_results[:,2], color="gold")
+    # phi parameter function of time
+    ax1.plot(time_mesh_basic, phi_mesh, color="green", alpha=0.7)
+    # gamma parameter function of time
+    #print(gamma(basic_results[:,0]))
+    ax1.plot(time_mesh_basic, gamma(basic_results[:,0]), color="blue", alpha=0.7)
 
     ax1.set_xlabel("$t$")
-    ax1.set_ylabel("$x$, $y$, $z$")
+    ax1.set_ylabel("$x$, $y$, $z$, $\phi$, $\gamma$")
     ax1.set_xlim(0,500)
     ax1.set_ylim(-4,4)
     #ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
