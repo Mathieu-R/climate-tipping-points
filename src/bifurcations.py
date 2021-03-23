@@ -187,16 +187,16 @@ def fold_hopf_bifurcations(px, dp, sr, ds, ax):
   #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 def run_bifurcations():
-  fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))))
-  fig.suptitle("Diagrammes de bifurcation")
+  fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))), sharey=True)
+  #fig.suptitle("Diagrammes de bifurcation")
 
   fold_bifurcation(fold, fold_df, ax1)
   hopf_bifurcation(hopf_polar, hopf_polar_df, ax2)
   fold_hopf_bifurcations(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
 
-  ax1.text(-0.1, 1.1, "a", transform=ax1.transAxes, size=10, weight="bold")
-  ax2.text(-0.1, 1.1, "b", transform=ax2.transAxes, size=10, weight="bold")
-  ax3.text(-0.1, 1.1, "c", transform=ax3.transAxes, size=10, weight="bold")
+  ax1.text(0.5, 1.1, "(a)", ha="center", transform=ax1.transAxes, size=8)
+  ax2.text(0.5, 1.1, "(b)", ha="center", transform=ax2.transAxes, size=8)
+  ax3.text(0.5, 1.1, "(c)", ha="center", transform=ax3.transAxes, size=8)
 
   plt.savefig("article/figures/bifurcations.pdf", dpi=300)
 

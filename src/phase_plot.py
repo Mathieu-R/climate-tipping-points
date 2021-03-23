@@ -4,9 +4,14 @@ import matplotlib.pyplot as plt
 from consts import (b1, b2, c1, c2, t_init, t_fin, time_step, x0, y0, z0)
 from .rk4 import rk4
 
-from src.utils.utils import set_size
+from src.utils.utils import (set_size, set_size_square_plot)
 
-plt.style.use("src/style/style.mplstyle")
+plt.style.use("science")
+plt.rcParams.update({
+  "font.size": 10,
+  "xtick.labelsize": 8,
+  "ytick.labelsize": 8
+})
 
 def hopf(v, gam):
   return np.array([
@@ -32,7 +37,7 @@ def phase_plot():
 
   initial = [y0, z0]
 
-  fig, ax = plt.subplots(1, 1, figsize=(set_size(width="column-size")))
+  fig, ax = plt.subplots(1, 1, figsize=(set_size_square_plot(width="column-size")))
 
   y_mesh = np.linspace(start=-3, stop=3, num=100)
   z_mesh = np.linspace(start=-3, stop=3, num=100)
@@ -46,7 +51,9 @@ def phase_plot():
   results = solve(rk4, hopf, initial, dt, nt, gam)
 
   ax.plot(results[:,0], results[:,1], 'blue')
-  ax.set_title("Portrait de phase --- $\gamma = 1$")
+  #ax.set_title("Portrait de phase --- $\gamma = 1$")
+  ax.set_xlim(-3, 3)
+  ax.set_ylim(-3, 3)
   ax.set_xlabel('x')
   ax.set_ylabel('y')
 
