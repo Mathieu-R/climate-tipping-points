@@ -35,7 +35,10 @@ class time_series():
 
   def phi_time(self, t):
     # stabilize phi parameter for the first 100 a.u so the bifurcation does not start directly.
-    return min(-0.7 + 0.05 * max(t - 100, 0), 0.4)
+    # t = [0, 100] : phi = - 0.7
+    # t = [101, end] : phi(t) = 0.05 * t ;
+    # we stop at phi = 0.4
+    return min(-0.7 + 0.05 * max(t - 100, 0), 0.7)
 
   """ Plot a temporal serie
 
@@ -158,7 +161,7 @@ class time_series():
     ax1.set_xlabel("$t$")
     ax1.set_ylabel("$x$, $y$, $z$, $\phi$, $\gamma$")
     ax1.set_xlim(0,500)
-    ax1.set_ylim(-4,4)
+    ax1.set_ylim(-3,3)
     #ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
     #ax1.set_title("Basique")
 
