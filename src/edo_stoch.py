@@ -14,6 +14,15 @@ def phi_time(t):
 def gamma(x):
   return gamma1_stoch + (gamma2_stoch * x)
 
+def dx_stoch(t, x, y, z):
+  return a1_stoch * (x ** 3) + a2_stoch * x + phi_time(t)
+
+def dy_stoch(t, x, y, z):
+  return b1_stoch*z + b2_stoch*(gamma(x) - (y**2 + z**2))*y
+
+def dz_stoch(t, x, y, z):
+  return c1_stoch*y + c2_stoch*(gamma(x) - (y**2 + z**2))*z
+
 def fold_hopf_stoch(t, v, phi):
   #print(v, phi)
   return np.array([

@@ -43,6 +43,15 @@ def hopf_polar_coupled(r, x):
 def hopf_polar_coupled_df(r, x):
   return gamma(x) - (3 * (r ** 2))
 
+def dx(t, x, y, z):
+  return a1 * (x ** 3) + a2 * x + phi_time(t)
+
+def dy(t, x, y, z):
+  return b1*z + b2*(gamma(x) - (y**2 + z**2))*y
+
+def dz(t, x, y, z):
+  return c1*y + c2*(gamma(x) - (y**2 + z**2))*z
+
 # v is a vector \vec{v}: [x, y, z]
 def fold_hopf(t, v, phi):
   print(a1, a2, b1, b2, c1, c2)
