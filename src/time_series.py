@@ -64,7 +64,7 @@ class time_series():
 
     for k in range(0, nt - 1):
       t = k * dt
-      v_mesh[k + 1] = v_mesh[k] + solver(edo, v_mesh[k], dt, self.phi)
+      v_mesh[k + 1] = v_mesh[k] + solver(edo, v_mesh[k], t, dt, self.phi)
 
       # e.g. stochastic: phi(t) = 0.002t
       #print(self.phi_time(t))
@@ -72,7 +72,7 @@ class time_series():
       self.phi = self.phi_time(t) #phi_factor * t
 
     # reset forcing parameter
-    self.phi = -1
+    # self.phi = -1
     return v_mesh, phi_mesh
 
   def basic(self):

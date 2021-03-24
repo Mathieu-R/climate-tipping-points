@@ -1,6 +1,14 @@
 import numpy as np
 from consts import (a1, a2, b1, b2, c1, c2, gamma1, gamma2)
 
+# phi time dependent for time serie
+def phi_time(t):
+  # stabilize phi parameter for the first 100 a.u so the bifurcation does not start directly.
+  # t = [0, 100] : phi = - 0.7
+  # t = [101, end] : phi(t) = 0.05 * t ;
+  # we stop at phi = 0.4
+  return min(-0.7 + 0.05 * max(t - 100, 0), 0.7)
+
 # linear coupling parameter
 # proposed by Dekker et al. article
 def gamma(x):
@@ -36,9 +44,10 @@ def hopf_polar_coupled_df(r, x):
   return gamma(x) - (3 * (r ** 2))
 
 # v is a vector \vec{v}: [x, y, z]
-def fold_hopf(v, phi):
+def fold_hopf(t, v, phi):
+  print(a1, a2, b1, b2, c1, c2)
   return np.array([
-    a1 * (v[0] ** 3) + a2 * v[0] + phi,
+    a1 * (v[0] ** 3) + a2 * v[0] + phi_time(t),
     b1*v[2] + b2*(gamma(v[0]) - (v[1]**2 + v[2]**2))*v[1],
     c1*v[1] + c2*(gamma(v[0]) - (v[1]**2 + v[2]**2))*v[2]
   ])
