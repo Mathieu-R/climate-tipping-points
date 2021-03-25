@@ -67,7 +67,7 @@ pour $a_1 < 0 < a_2$ ou $a_2 < 0 < a_1$.
 
 % Si $y = 0$ alors $z = 0$ et $(y,z) = (0,0)$ est le seul équilibre réel de ce système.
 
-\section{Le système d'EDO (\ref{eq:hopf}) a un cycle limite pour $\gamma > 0$}
+\section{Le système secondaire avec paramètre de forçage a un cycle limite}
 
 Sans perte de généralités, posons $b_1 = b_2 = 1$ et $c_1 = -1$ et $c_2 = 1$.
 
@@ -106,9 +106,9 @@ L'analyse graphique nous montre que,
 
 Cela nous montre bien l'apparition d'un cycle limite dans le plan $(y,z)$ pour des valeurs de $\gamma \geq 0$.
 
-Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On voit bien les solutions converger vers ce cycle.
+Ci-dessous le portrait de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On voit bien les solutions converger vers ce cycle.
 
-\begin{figure}[hb!]
+\begin{figure}[H]
   \centering
   \includegraphics{figures/phase-plot.pdf}
   \caption{Portrait de phase du système d'équations différentielles (\ref{eq:hopf}) pour $\gamma = 1$. Le cycle limite est affiché en bleu.}
@@ -117,7 +117,7 @@ Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On 
 
 \section{Paramètre utilisés dans les simulations}
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
   \hline
@@ -135,11 +135,11 @@ Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On 
   $\Delta t$        & $0.2$ \\
   $(x_0, y_0, z_0)$ & $(-0.5, 1, -1)$ \\\hline
 \end{tabular}
-\label{tab:basic-parameters}
 \caption{Paramètres utilisés dans les différentes bifurcation et la série temporelle non bruitée}
+\label{tab:basic-parameters}
 \end{table}
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
   \hline
@@ -158,6 +158,6 @@ Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On 
   Moyenne         & $0$ \\
   Variance        & $0.1$ \\\hline
 \end{tabular}
-\label{tab:stochastic-parameters}
 \caption{Paramètres utilisés dans la série temporelle stochastique}
+\label{tab:stochastic-parameters}
 \end{table}
