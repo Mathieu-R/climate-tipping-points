@@ -17,7 +17,7 @@ $ python3 -m pip install --upgrade pip
 
 Install required packages
 ```bash
-$ python3 -m pip install numpy matplotlib pandas seaborn click tqdm
+$ python3 -m pip install numpy matplotlib scipy click tqdm
 ```
 
 Launch examples

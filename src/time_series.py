@@ -1,11 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-import pandas as pd
-import seaborn as sns
+# import pandas as pd
+# import seaborn as sns
 
 from tqdm import tqdm
-from scipy.stats import median_abs_deviation
+#from scipy.stats import median_abs_deviation
 
 from .edo import (fold_hopf, gamma, dx, dy, dz)
 from .edo_stoch import (fold_hopf_stoch, dx_stoch, dy_stoch, dz_stoch)
