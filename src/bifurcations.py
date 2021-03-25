@@ -23,8 +23,11 @@ def fold_bifurcation(fx, df, ax):
   nphi = 1000
   nx = 10000
 
+  x_min = -1.5
+  x_max = 1.5
+
   phi_mesh = np.linspace(start=-1, stop=1, num=nphi)
-  x_mesh = np.linspace(start=-1.5, stop=1.5, num=nx)
+  x_mesh = np.linspace(start=x_min, stop=x_max, num=nx)
 
   # algorithm
   for phi in phi_mesh:
@@ -53,12 +56,25 @@ def fold_bifurcation(fx, df, ax):
   ax.plot(stable_equ_up[0], stable_equ_up[1], color="black", label="ligne stable")
   ax.plot(stable_equ_down[0], stable_equ_down[1], color="black", label="ligne stable")
   ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+
+  # annotations
+  phi_down = stable_equ_up[0][0]
+  phi_up = stable_equ_down[0][-1]
+
+  ax.plot(phi_down, stable_equ_up[1][0], 'o', color="red", markersize=5)
+  ax.plot([phi_down, phi_down], [x_min, stable_equ_up[1][0]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
+  ax.plot(phi_up, stable_equ_down[1][-1], 'o', color="red", markersize=5)
+  ax.plot([phi_up, phi_up], [x_min, stable_equ_down[1][-1]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
   ax.set_xlabel("$\phi$")
   ax.set_ylabel("$x$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
   #ax.set_title("Fold")
   #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+  return phi_down, phi_up
 
 def fold_bifurcation_roots(fx, df, ax):
   stable_equ_up = []
@@ -211,6 +227,11 @@ def hopf_bifurcation_roots(fx, df, ax):
   ax.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", linewidth=1, color="green", label="ligne stable - osc.")
   ax.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
   ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashed", color="red", label="ligne instable")
+
+  # annotations
+  ax.plot(unstable_equ[0][0], unstable_equ[1][0], 'o', color="orange", markersize=5)
+  ax.plot([unstable_equ[0][0], unstable_equ[0][0]], [r_min, unstable_equ[1][0]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
   ax.set_xlabel("$\gamma$")
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
@@ -288,7 +309,7 @@ def fold_hopf_bifurcations(px, dp, sr, ds, ax):
   #ax.set_title("Fold-Hopf")
   #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax):
+def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax, phi_down, phi_up):
   stable_equ_middle = []
   stable_equ_up = []
   stable_equ_down = []
@@ -338,6 +359,17 @@ def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax):
   ax.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
   ax.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
   ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable", zorder=-1)
+
+  # annotations
+  ax.plot(unstable_equ[0][0], unstable_equ[1][0], 'o', color="orange", markersize=5)
+  ax.plot([unstable_equ[0][0], unstable_equ[0][0]], [r_min, unstable_equ[1][0]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
+  ax.plot(phi_down, stable_equ_middle[1][0], 'o', color="red", markersize=5)
+  ax.plot([phi_down, phi_down], [r_min, stable_equ_middle[1][0]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
+  ax.plot(phi_up, stable_equ_middle[1][0], 'o', color="red", markersize=5)
+  ax.plot([phi_up, phi_up], [r_min, stable_equ_middle[1][-1]], '--', color='Grey', linewidth=0.5, zorder=-1)
+
   ax.set_xlabel("$\phi$")
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
@@ -347,9 +379,9 @@ def run_bifurcations():
   fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))), sharey=True)
   #fig.suptitle("Diagrammes de bifurcation")
 
-  fold_bifurcation(fold, fold_df, ax1)
+  phi_down, phi_up = fold_bifurcation(fold, fold_df, ax1)
   hopf_bifurcation_roots(hopf_polar, hopf_polar_df, ax2)
-  fold_hopf_bifurcations_roots(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
+  fold_hopf_bifurcations_roots(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3, phi_down, phi_up)
 
   ax1.text(0.5, 1.1, "(a)", ha="center", transform=ax1.transAxes, size=8)
   ax2.text(0.5, 1.1, "(b)", ha="center", transform=ax2.transAxes, size=8)

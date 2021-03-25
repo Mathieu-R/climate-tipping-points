@@ -172,7 +172,7 @@ class time_series():
     ax1.plot(time_mesh_basic, gamma(x), color="blue", alpha=0.7, zorder=-1)
 
     #ax1.set_xlabel("$t$")
-    ax1.set_ylabel("$x$, $y$, $z$, $\phi$, $\gamma$")
+    ax1.set_ylabel("variables")
     ax1.set_xlim(0,500)
     ax1.set_ylim(-3,3)
     #ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
@@ -187,7 +187,7 @@ class time_series():
     ax2.fill_between(time_mesh_stoch, mean_z - deviation_z, mean_z + deviation_z, alpha=0.2, color="gold")
 
     ax2.set_xlabel("temps [u.a]")
-    ax2.set_ylabel("$x$, $y$, $z$")
+    ax2.set_ylabel("variables")
     ax2.set_xlim(0,500)
     ax2.set_ylim(-3,3)
     #ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
