@@ -1,6 +1,9 @@
 # climate-tipping-points
 
-Investigating tipping points in climatology. In particular, a fold-hopf bifurcation.
+Investigating tipping points in climatology. In particular, a fold-hopf bifurcation.    
+This work has been based on this article from Dekker et al. : https://esd.copernicus.org/articles/9/1243/2018/  
+
+![bifurcations](bifurcations.png)
 
 ### Running simulations
 Clone the project

@@ -26,8 +26,7 @@ t_fin = 500
 time_step = 0.2
 
 # phi_factor
-phi_factor = 0.008
-
+#phi_factor = 0.008
 
 # gaussian noise parameters
 mean = 0.0
@@ -43,6 +42,6 @@ c2_stoch = 1
 gamma1_stoch = -0.2
 gamma2_stoch = 0.3
 time_step_stoch = 0.1
-phi_factor_stoch = 0.002
+#phi_factor_stoch = 0.002
 
 TRESHOLD = 10**-4

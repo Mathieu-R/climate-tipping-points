@@ -33,41 +33,41 @@ On a donc trouvé l'intervalle critique où il y a création 3 équilibres.
 \end{equation}
 pour $a_1 < 0 < a_2$ ou $a_2 < 0 < a_1$.
 
-\section{La bifurcation de Hopf a un unique équilibre en $(y,z)=(0,0)$}
-Soit le système d'EDO,
-\begin{equation}
-  \begin{cases}
-    \dot{y} = b_1z + b_2[\gamma - (y^2 + z^2)]y \equiv f_{1,\gamma}(y,z) \\
-    \dot{z} = c_1y + c_2[\gamma - (y^2 + z^2)]z \equiv f_{2,\gamma}(y,z)
-  \end{cases}
-\end{equation}
-avec $b_1, b_2, c_1, c_2 \in \R_{\ast}$.
+% \section{La bifurcation de Hopf a un unique équilibre en $(y,z)=(0,0)$}
+% Soit le système d'EDO,
+% \begin{equation}
+%   \begin{cases}
+%     \dot{y} = b_1z + b_2[\gamma - (y^2 + z^2)]y \equiv f_{1,\gamma}(y,z) \\
+%     \dot{z} = c_1y + c_2[\gamma - (y^2 + z^2)]z \equiv f_{2,\gamma}(y,z)
+%   \end{cases}
+% \end{equation}
+% avec $b_1, b_2, c_1, c_2 \in \R_{\ast}$.
 
-Il y a équilibre lorsque $\vb{f}_{\gamma}(y,z) = 0$ c'est à dire,
-\begin{align*}
-  \vb{f}_{\gamma}(y,z) = 0
-    &\iff
-  \begin{cases}
-    0 &= b_1z + b_2[\gamma - (y^2 + z^2)]y \\
-    0 &= c_1y + c_2[\gamma - (y^2 + z^2)]z
-  \end{cases} \\
-    &\implies
-  \begin{cases}
-    b_1z &= b_2[\gamma - (y^2 + z^2)]y \\
-    0 &= c_1y + c_2[\gamma - (y^2 + z^2)]^2 \frac{b_2}{b_1} y
-  \end{cases}
-\end{align*}
+% Il y a équilibre lorsque $\vb{f}_{\gamma}(y,z) = 0$ c'est à dire,
+% \begin{align*}
+%   \vb{f}_{\gamma}(y,z) = 0
+%     &\iff
+%   \begin{cases}
+%     0 &= b_1z + b_2[\gamma - (y^2 + z^2)]y \\
+%     0 &= c_1y + c_2[\gamma - (y^2 + z^2)]z
+%   \end{cases} \\
+%     &\implies
+%   \begin{cases}
+%     b_1z &= b_2[\gamma - (y^2 + z^2)]y \\
+%     0 &= c_1y + c_2[\gamma - (y^2 + z^2)]^2 \frac{b_2}{b_1} y
+%   \end{cases}
+% \end{align*}
 
-On trouve donc,
-\begin{equation*}
-  0 = y \left( c_1 - c_2 \frac{b_2}{b_1} \underbrace{[\gamma - (y^2 + z^2)]^2}_{\equiv \eta} \right)
-\end{equation*}
+% On trouve donc,
+% \begin{equation*}
+%   0 = y \left( c_1 - c_2 \frac{b_2}{b_1} \underbrace{[\gamma - (y^2 + z^2)]^2}_{\equiv \eta} \right)
+% \end{equation*}
 
-Ce qui implique que $y = 0$ si $c_1 \neq c_2 \frac{b_2}{b_1}$.
+% Ce qui implique que $y = 0$ si $c_1 \neq c_2 \frac{b_2}{b_1}$.
 
-Si $y = 0$ alors $z = 0$ et $(y,z) = (0,0)$ est le seul équilibre réel de ce système.
+% Si $y = 0$ alors $z = 0$ et $(y,z) = (0,0)$ est le seul équilibre réel de ce système.
 
-\subsection{Le système d'EDO (\ref{eq:hopf}) a un cycle limite pour $\gamma > 0$}
+\section{Le système d'EDO (\ref{eq:hopf}) a un cycle limite pour $\gamma > 0$}
 
 Sans perte de généralités, posons $b_1 = b_2 = 1$ et $c_1 = -1$ et $c_2 = 1$.
 
@@ -108,7 +108,7 @@ Cela nous montre bien l'apparition d'un cycle limite dans le plan $(y,z)$ pour d
 
 Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On voit bien les solutions converger vers ce cycle.
 
-\begin{figure}[htbp]
+\begin{figure}[hb!]
   \centering
   \includegraphics{figures/phase-plot.pdf}
   \caption{Portrait de phase du système d'équations différentielles (\ref{eq:hopf}) pour $\gamma = 1$. Le cycle limite est affiché en bleu.}
@@ -117,9 +117,47 @@ Ci-dessous un plan de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On 
 
 \section{Paramètre utilisés dans les simulations}
 
-% \begin{table}
-%   $\phi(t)$  & $0.002t$ \\
-%   $\gamma(x)$ & $-0.1 + 0.12x$ \\
-%   $a1$ & $-1$ \\
-%   $a2$ $ $1$
-% \end{table}
+\begin{table}
+\centering
+\begin{tabular}{|l|l|}
+  \hline
+  Paramètre         & Valeur \\\hline
+  $\phi(t)$         & $0.5t$ \\
+  $\gamma_1$        & $-0.1$ \\
+  $\gamma_2$        & $0.12$ \\
+  $a_1$             & $-1$ \\
+  $a_2$             & $1$ \\
+  $b_1$             & $1$ \\
+  $b_2$             & $1$ \\
+  $c_1$             & $-1$ \\
+  $c_2$             & $1$ \\
+  $t$               & $[0, 500]$ \\
+  $\Delta t$        & $0.2$ \\
+  $(x_0, y_0, z_0)$ & $(-0.5, 1, -1)$ \\\hline
+\end{tabular}
+\label{tab:basic-parameters}
+\caption{Paramètres utilisés dans les différentes bifurcation et la série temporelle non bruitée}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|}
+  \hline
+  Paramètre       & Valeur \\\hline
+  $\phi(t)$       & $0.5t$ \\
+  $\gamma_1$      & $-0.2$ \\
+  $\gamma_2$      & $0.3$ \\
+  $a_1$           & $-1$ \\
+  $a_2$           & $1$ \\
+  $b_1$           & $0.1$ \\
+  $b_2$           & $1$ \\
+  $c_1$           & $-0.5$ \\
+  $c_2$           & $1$ \\
+  $t$             & $[0, 500]$ \\
+  $\Delta t$      & $0.1$ \\
+  Moyenne         & $0$ \\
+  Variance        & $0.1$ \\\hline
+\end{tabular}
+\label{tab:stochastic-parameters}
+\caption{Paramètres utilisés dans la série temporelle stochastique}
+\end{table}
