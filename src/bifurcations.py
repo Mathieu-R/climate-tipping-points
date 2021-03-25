@@ -302,32 +302,31 @@ def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax):
 
   phi_mesh = np.linspace(start=-1, stop=1, num=nphi)
 
-  x_mesh = np.linspace(start=x_min, stop=x_max, num=ntries)
+  x_mesh = np.linspace(start=x_min, stop=x_max, num=10000)
   r_mesh = np.linspace(start=r_min, stop=r_max, num=ntries)
   # loop each \phi
   for phi in phi_mesh:
     for x in x_mesh:
-      sol_x = sciopt.root(fun=px, jac=dp, x0=x, method="hybr", tol=0.01, args=(phi))
-      root_x = sol_x.x[0]
-      #print(root_x)
-      # loop for each r
-      for r in r_mesh:
-        sol_r = sciopt.root(fun=sr, jac=ds, x0=r, method="hybr", tol=0.01, args=(root_x))
-        root_r = sol_r.x[0]
-        #print(root_r)
-        # check the stability
-        #dp_value = dp(root_x, phi)
-        ds_value = ds(root_r, root_x)
-        if ds_value > 0:
-          #print([phi, root_r])
-          unstable_equ.append([phi, root_r])
-        elif ds_value < 0:
-          if root_r > 0.:
-            stable_equ_up.append([phi, root_r])
-          elif root_r < 0.:
-            stable_equ_down.append([phi, root_r])
-          else:
-            stable_equ_middle.append([phi, root_r])
+      p_value = px(x, phi)
+      if - TRESHOLD < p_value < TRESHOLD:
+        # loop for each r
+        for r in r_mesh:
+          sol_r = sciopt.root(fun=sr, jac=ds, x0=r, method="hybr", tol=0.01, args=(x))
+          root_r = sol_r.x[0]
+          #print(root_r)
+          # check the stability
+          #dp_value = dp(root_x, phi)
+          ds_value = ds(root_r, x)
+          if ds_value > 0:
+            #print([phi, root_r])
+            unstable_equ.append([phi, root_r])
+          elif ds_value < 0:
+            if root_r > 0.:
+              stable_equ_up.append([phi, root_r])
+            elif root_r < 0.:
+              stable_equ_down.append([phi, root_r])
+            else:
+              stable_equ_middle.append([phi, root_r])
 
   unstable_equ = list(zip(*unstable_equ))
   stable_equ_middle = list(zip(*stable_equ_middle))
@@ -338,7 +337,7 @@ def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax):
   ax.plot(stable_equ_middle[0], stable_equ_middle[1], color="black", label="ligne stable")
   ax.plot(stable_equ_up[0], stable_equ_up[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
   ax.plot(stable_equ_down[0], stable_equ_down[1], linestyle="dashdot", color="green", label="ligne stable - osc.")
-  ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable")
+  ax.plot(unstable_equ[0], unstable_equ[1], linestyle="dashdot", color="red", label="ligne instable", zorder=-1)
   ax.set_xlabel("$\phi$")
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
@@ -348,7 +347,7 @@ def run_bifurcations():
   fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))), sharey=True)
   #fig.suptitle("Diagrammes de bifurcation")
 
-  fold_bifurcation_roots(fold, fold_df, ax1)
+  fold_bifurcation(fold, fold_df, ax1)
   hopf_bifurcation_roots(hopf_polar, hopf_polar_df, ax2)
   fold_hopf_bifurcations_roots(fold, fold_df, hopf_polar_coupled, hopf_polar_coupled_df, ax3)
 
