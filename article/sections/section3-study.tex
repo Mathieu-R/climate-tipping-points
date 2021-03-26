@@ -21,7 +21,7 @@ Alors que nous nous approchons de la valeur critique de la bifurcation que nous 
 \begin{figure*}[htbp]
   \centering
   \includegraphics{figures/bifurcations.pdf}
-  \caption{(a) Bifurcation fold. (b) Bifurcation hopf. (c) Bifurcation fold-hopf. Les lignes noires correspondent aux équilibres stables tandis que les lignes rouges en traits pointillés correspondent aux équilibres instables. Les lignes vertes en traits pointillés correpondent à des équilibres stables mais oscillatoires. Les points rouges sont les points de bascule de la bifurcation fold tandis que les points oranges sont les points de bascules de la bifurcation de hopf.}
+  \caption{(a) Système primaire vs forçage $\phi$ (bifurcation fold). (b) Système secondaire vs couplage $\gamma$ (bifurcation de hopf). (c) Système secondaire vs forçage $\phi$ (bifurcation fold-hopf). Les lignes noires correspondent aux équilibres stables tandis que les lignes rouges en traits pointillés correspondent aux équilibres instables. Les lignes vertes en traits pointillés correpondent à des équilibres stables avec un régime oscillatoire. Les points rouges sont les points de bascule de la bifurcation fold tandis que les points oranges sont les points de bascules de la bifurcation de hopf.}
   \label{fig:bifurcations}
 \end{figure*}
 
@@ -87,14 +87,6 @@ Afin de mieux comprendre la façon de se comporte notre système, on peut passer
 
 L'analyse graphique de l'équation pour $\dot{r}$ nous montre la présence d'un équilibre stable en $r = 0$ pour $\gamma < 0$ par contre lorsque $\gamma \geq 0$, l'équilibre en $r = 0$ devient instable et il apparait un nouvel attracteur en $r = \sqrt{\gamma}$. Il y a à la fois changement dans la nature d'un équilibre et création d'un autre équilibre. On comprend donc que lorsque $\gamma \geq 0$ il apparait un cycle limite de rayon $r = \sqrt{\gamma}$ où toutes les solutions partant en dehors de ce cycle y convergent. C'est ce que nous voyons sur la figure (\ref{fig:bifurcations}b) Ce cycle limite stable apparait en une valeur de $\gamma$ supérieure à celle du point d'équilibre instable. On nomme alors cette bifurcation une bifurcation de hopf \emph{supercritique}.
 
-L'équation pour $\dot{\theta}$ nous montre que les trajectoires ont un sens horloger (autour de l'origine) tandis que l'équation paramétrique de ce cycle limite est donnée par,
-\begin{equation}
-  \begin{cases}
-    y &= \sqrt{\gamma} \sin(\theta_0 - t) \\
-    z &= \sqrt{\gamma} \cos(\theta_0 - t)
-  \end{cases}
-\end{equation}
-
 \subsection{Bifurcation fold-hopf}
 
 Le système que nous étudions présente un mix de ces 2 bifurcations. L'équation pour $\dot{x}$ donne lieu à une bifurcation fold tel que nous l'avons vu à la section (\ref{sec:fold}). L'équation pour $\dot{y}$ et $\dot{z}$ est un peu différente dans le sens où nous considérons dès à présent un paramètre de couplage $\gamma(x)$ qui dépend de la première équation. Par ailleurs, nous supposerons lorsque nous élaborerons la séri temporelle du système que $\phi = \phi(t)$ varie lentement en fonction du temps.
@@ -106,7 +98,7 @@ Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmen
 \begin{figure*}[ht!]
   \centering
   \includegraphics{figures/time-series.pdf}
-  \caption{(a) Série temporelle sans terme stochastique. (b) Série temporelle contenant un ensemble de 100 simulations avec un terme stochastique}
+  \caption{(a) Série temporelle sans bruit. (b) Série temporelle bruitée contenant un ensemble de 100 simulations avec un terme stochastique. Dans cette dernière, les lignes correspondent aux moyennes des différents états du systèmes correspondants tandis que les zones de faible opacités correspondent aux déviations standards $[\mu - \sigma, \mu + \sigma]$ des états correspondants. La ligne noire correspond au système primaire. Les lignes jaunes et rouges correspondent au système secondaire. La ligne verte est la valeur du paramètre de forçage $\phi$ et la ligne bleue est la valeur du paramètre de couplage $\gamma(x)$.}
   \label{fig:time-series}
 \end{figure*}
 
