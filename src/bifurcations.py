@@ -10,7 +10,7 @@ from .edo import (fold, fold_df, hopf_polar, hopf_polar_df, hopf_polar_coupled, 
 from .rk4 import rk4
 
 plt.style.use("science")
-np.set_printoptions(precision=3, suppress=True)
+#np.set_printoptions(precision=3, suppress=True)
 
 """Leading vs forcing \phi
 
@@ -71,8 +71,8 @@ def fold_bifurcation(fx, df, ax):
   ax.set_ylabel("$x$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  #ax.set_title("Fold")
-  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.set_title("système primaire vs $\phi$")
+  ax.legend(loc="best")
 
   return phi_down, phi_up
 
@@ -170,8 +170,8 @@ def hopf_bifurcation(fx, df, ax):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  #ax.set_title("Hopf")
-  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.set_title("système secondaire vs $\gamma$")
+  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 """Following vs coupling \gamma
 
@@ -236,6 +236,8 @@ def hopf_bifurcation_roots(fx, df, ax):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
+  ax.set_title("système secondaire vs $\gamma$")
+  ax.legend(loc="best")
 
 
 """Following vs forcing \phi
@@ -306,8 +308,8 @@ def fold_hopf_bifurcations(px, dp, sr, ds, ax):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
-  #ax.set_title("Fold-Hopf")
-  #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+  ax.set_title("Système secondaire vs $\phi$")
+  ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax, phi_down, phi_up):
   stable_equ_middle = []
@@ -374,10 +376,12 @@ def fold_hopf_bifurcations_roots(px, dp, sr, ds, ax, phi_down, phi_up):
   ax.set_ylabel("$r$")
   ax.set_xlim(-1, 1)
   ax.set_ylim(-1.5, 1.5)
+  ax.set_title("système secondaire vs $\phi$")
+  ax.legend(loc="best")
 
 def run_bifurcations():
   fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(set_size(width="full-size", subplots=(1,3))), sharey=True)
-  #fig.suptitle("Diagrammes de bifurcation")
+  fig.suptitle("Diagrammes de bifurcation")
 
   phi_down, phi_up = fold_bifurcation(fold, fold_df, ax1)
   hopf_bifurcation_roots(hopf_polar, hopf_polar_df, ax2)
@@ -387,7 +391,7 @@ def run_bifurcations():
   ax2.text(0.5, 1.1, "(b)", ha="center", transform=ax2.transAxes, size=8)
   ax3.text(0.5, 1.1, "(c)", ha="center", transform=ax3.transAxes, size=8)
 
-  plt.savefig("article/figures/bifurcations.pdf", dpi=300)
+  #plt.savefig("article/figures/bifurcations.pdf", dpi=300)
 
   # tight_layout() not recommended for figure that go in article.
   #plt.tight_layout()

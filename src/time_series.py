@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# import pandas as pd
-# import seaborn as sns
-
 from tqdm import tqdm
 #from scipy.stats import median_abs_deviation
 
@@ -14,10 +11,10 @@ from .euler import forward_euler_maruyama
 
 from src.utils.utils import set_size
 
-from consts import (x0, y0, z0, t_init, t_fin, time_step, time_step_stoch, phi_factor, phi_factor_stoch)
+from consts import (x0, y0, z0, t_init, t_fin, time_step, time_step_stoch)
 
 plt.style.use("science")
-np.set_printoptions(precision=3, suppress=True)
+#np.set_printoptions(precision=3, suppress=True)
 
 class time_series():
   def __init__(self):
@@ -49,7 +46,7 @@ class time_series():
 
   :return: ndarray -- [[x0, y0, z0], ..., [x{N-1}, y{N-1}, z{N-1}]]
   """
-  def solve(self, solver, edox, edoy, edoz, dt, nt, phi_factor):
+  def solve(self, solver, edox, edoy, edoz, dt, nt):
     # [x0, y0, z0]
     #v = self.initial_conditions[0]
 
@@ -88,7 +85,7 @@ class time_series():
     time_mesh_basic = np.linspace(start=self.t0, stop=self.tN, num=nt)
 
     # [ [x0, y0, z0], [x1, y1, z1], ..., [xN, yN, zN] ]
-    x, y, z, phi_mesh = self.solve(rk4, dx, dy, dz, dt, nt, phi_factor)
+    x, y, z, phi_mesh = self.solve(rk4, dx, dy, dz, dt, nt)
     return time_mesh_basic, x, y, z, phi_mesh
 
   # def stochastic_seaborn(self):
@@ -136,7 +133,7 @@ class time_series():
     stochastic_results_z = np.ones((self.niter, nt))
     # compute a lot of simulations
     for i in tqdm(range(0, self.niter)):
-      x, y, z, phi_mesh = self.solve(forward_euler_maruyama, dx_stoch, dy_stoch, dz_stoch, dt, nt, phi_factor_stoch)
+      x, y, z, phi_mesh = self.solve(forward_euler_maruyama, dx_stoch, dy_stoch, dz_stoch, dt, nt)
       stochastic_results_x[i] = x
       stochastic_results_y[i] = y
       stochastic_results_z[i] = z
@@ -160,7 +157,7 @@ class time_series():
 
     # 2 lines, 1 column
     fig, ((ax1), (ax2)) = plt.subplots(2, 1, figsize=(483.69687 * 1 / 72.27, 2), sharex=True)
-    #fig.suptitle("Série temporelle")
+    fig.suptitle("Séries temporelles")
 
     ax1.plot(time_mesh_basic, x, color="black")
     ax1.plot(time_mesh_basic, y, color="red")
@@ -175,8 +172,8 @@ class time_series():
     ax1.set_ylabel("variables")
     ax1.set_xlim(0,500)
     ax1.set_ylim(-3,3)
-    #ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
-    #ax1.set_title("Basique")
+    ax1.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
+    ax1.set_title("Non-stochastique")
 
     ax2.plot(time_mesh_stoch, mean_x, color="black")
     ax2.plot(time_mesh_stoch, mean_y, color="red")
@@ -190,13 +187,13 @@ class time_series():
     ax2.set_ylabel("variables")
     ax2.set_xlim(0,500)
     ax2.set_ylim(-3,3)
-    #ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
-    #ax2.set_title("Stochastique")
+    ax2.legend(self.legends, loc="center left", bbox_to_anchor=(1,0.5))
+    ax2.set_title("Stochastique")
 
     ax1.text(0.035, 0.85, "(a)", ha="center", transform=ax1.transAxes, size=8, fontweight="bold")
     ax2.text(0.035, 0.85, "(b)", ha="center", transform=ax2.transAxes, size=8, fontweight="bold")
 
-    plt.savefig("article/figures/time-series.pdf", dpi=300)
+    #plt.savefig("article/figures/time-series.pdf", dpi=300)
 
     #plt.tight_layout()
     plt.show()

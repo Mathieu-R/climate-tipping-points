@@ -5,7 +5,7 @@ This work has been based on this article from Dekker et al. : https://esd.copern
 
 ![bifurcations](bifurcations.png)
 
-### Running simulations
+### Installation
 Clone the project
 ```bash
 $ git clone https://github.com/Mathieu-R/climate-tipping-points.git
@@ -20,11 +20,29 @@ $ python3 -m pip install --upgrade pip
 
 Install required packages
 ```bash
-$ python3 -m pip install numpy matplotlib scipy click tqdm
+$ python3 -m pip install -r requirements.txt
 ```
 
-Launch examples
+### Launch simulations
+Type `--help` command to show all the possible parameters that are available and how to launch a simulation.
 ```bash
-$ python3 index.py --plot=time-series 
-$ python3 index.py --plot=bifurcations
+$ python3 index.py --help
+Usage: index.py [OPTIONS]
+
+Options:
+  -p, --plot [time-series|bifurcations|phase-plot]
+                                  Type de plot à afficher. time-series:
+                                  affiche les séries temporelles non-
+                                  stochastiques et stochastiques.
+                                  bifurcations: affiche les 3 diagrammes de
+                                  bifurcations. phase-plot: affiche le
+                                  portrait de phase exhibant un cycle limite
+                                  du système contenant la bifurcation de hopf.
+
+  --help                          Show this message and exit.
+```
+
+For example
+```bash
+python3 index.py -p time-series
 ```
