@@ -3,12 +3,10 @@ Soit l'EDO à 1 paramètre
 \begin{equation}
   \dot{x}(t) = a_1x^3 + a_2x + \phi \equiv f_{\phi}(x), \quad a_1, a_2 \in \R
 \end{equation}
-
 On peut la voir comme la somme d'une fonction cubique et d'une droite. En traçant les 2 graphes, on observe que nous avons plusieurs équilibres pour $a_1 < 0 < a_2$ ou $a_2 < 0 < a_1$. Il existe au moins un équilibre lorsque la droite et la fonction cubique s'intersectent.
 \begin{equation} \label{eq:intersection}
   f_{\phi_c}(x_0) = 0 \iff a_1 x_0^3 = - (a_2x_0 + \phi_c)
 \end{equation}
-
 Il y a création de 3 équilibres lorsque la droite est tangente à la fonction cubique.
 \begin{align*}
   f'_{\phi_c(x_0)} = 0
@@ -16,8 +14,7 @@ Il y a création de 3 équilibres lorsque la droite est tangente à la fonction 
     &\iff x_0^2 = - \frac{a_2}{3a_1} \\
     &\iff x_0 = \pm \sqrt{- \frac{a_2}{3a_1}}
 \end{align*}
-
-ce qui implique en injectant dans (\ref{eq:intersection})
+ce qui implique en injectant dans (\ref{eq:intersection}) que
 \begin{align*}
   \pm a_1 \left( - \frac{a_2}{3a_1} \right)^{3/2}
     &= - \left( \pm a_2 \left[ - \frac{a_2}{3a_1} \right]^{1/2} + \phi_c \right) \\
@@ -78,7 +75,6 @@ Le système (\ref{eq:hopf}) devient,
     \dot{z} &= -1y + 1[\gamma - (y^2 + z^2)]z
   \end{cases}
 \end{equation}
-
 Passons en coordonnées polaires $(r, \theta)$\footnote{On retrouve facilement les relations de changement de coordonnées en dérivant $r^2 = y^2 + z^2$ et $\theta = \arctan(z/y)$}.
 \begin{align*}
   \dot{r} = \frac{y\dot{y} + z\dot{z}}{r}
@@ -87,14 +83,12 @@ Passons en coordonnées polaires $(r, \theta)$\footnote{On retrouve facilement l
     &= \frac{\gamma r^2 - r^4}{r} \\
     &= \gamma r - r^3 \equiv f_r(\gamma)
 \end{align*}
-
 \begin{align*}
   \dot{\theta} = \frac{\dot{z}y - z\dot{y}}{r^2}
     &= \frac{(-y + \gamma z - r^2 z)y - z(z + \gamma y - r^2 y)}{r^2} \\
     &= \frac{- y^2 - z^2}{r^2} \\
     &= -1
 \end{align*}
-
 L'EDO est $\dot{\theta}$ est facilement résolvable par séparation des variables. On trouve $\theta = -t + \theta_0$. L'analyse graphique de l'équation pour $\dot{r}$ nous renseigne sur la nature des équilibres de cette dernière.
 On trouve en effet aisément que cette EDO a des équilibres en $r = 0$ pour tout $\gamma \in \R$ et $r = \sqrt{\gamma}$ pour $\gamma \geq 0$.
 
@@ -115,7 +109,6 @@ L'équation pour $\dot{\theta}$ nous montre que les trajectoires ont un sens hor
 \end{equation}
 
 Ci-dessous le portrait de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$. On voit bien les solutions converger vers ce cycle.
-
 \begin{figure}[H]
   \centering
   \includegraphics{figures/phase-plot.pdf}
@@ -124,48 +117,26 @@ Ci-dessous le portrait de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$.
 \end{figure}
 
 \section{Paramètre utilisés dans les simulations}
-
 \begin{table}[H]
 \centering
-\begin{tabular}{|l|l|}
-  \hline
-  Paramètre         & Valeur \\\hline
-  $\phi(t)$         & $0.5t$ \\
-  $\gamma_1$        & $-0.1$ \\
-  $\gamma_2$        & $0.12$ \\
-  $a_1$             & $-1$ \\
-  $a_2$             & $1$ \\
-  $b_1$             & $1$ \\
-  $b_2$             & $1$ \\
-  $c_1$             & $-1$ \\
-  $c_2$             & $1$ \\
-  $t$               & $[0, 500]$ \\
-  $\Delta t$        & $0.2$ \\
-  $(x_0, y_0, z_0)$ & $(-0.5, 1, -1)$ \\\hline
+\begin{tabular}{lcc} \toprule
+  & \multicolumn {2}{c}{Valeur} \\\cmidrule(lr) {2-3}
+  Paramètre         & Non-Stochastique                & Stochastique\\\hline
+  $\phi(t)$         & $0.5t$                          & $0.5t$ \\
+  $\gamma_1$        & $-0.1$                          & $-0.2$ \\
+  $\gamma_2$        & $0.12$                          & $0.3$ \\
+  $a_1$             & $-1$                            & $-1$ \\
+  $a_2$             & $1$                             & $1$ \\
+  $b_1$             & $1$                             & $0.1$ \\
+  $b_2$             & $1$                             & $1$ \\
+  $c_1$             & $-1$                            & $-0.5$ \\
+  $c_2$             & $1$                             & $1$ \\
+  $t$               & $[0, 500]$                      & $[0, 500]$ \\
+  $\Delta t$        & $0.2$                           & $0.1$ \\
+  $(x_0, y_0, z_0)$ & $(-0.5, 1, -1)$                 & $(-0.5, 1, -1)$ \\
+  $Moyenne$         & //                              & $0$ \\
+  $Variance$        & //                              & $0.1$ \\\hline
 \end{tabular}
-\caption{Paramètres utilisés dans les différentes bifurcation et la série temporelle non bruitée}
-\label{tab:basic-parameters}
-\end{table}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-  \hline
-  Paramètre       & Valeur \\\hline
-  $\phi(t)$       & $0.5t$ \\
-  $\gamma_1$      & $-0.2$ \\
-  $\gamma_2$      & $0.3$ \\
-  $a_1$           & $-1$ \\
-  $a_2$           & $1$ \\
-  $b_1$           & $0.1$ \\
-  $b_2$           & $1$ \\
-  $c_1$           & $-0.5$ \\
-  $c_2$           & $1$ \\
-  $t$             & $[0, 500]$ \\
-  $\Delta t$      & $0.1$ \\
-  Moyenne         & $0$ \\
-  Variance        & $0.1$ \\\hline
-\end{tabular}
-\caption{Paramètres utilisés dans la série temporelle stochastique}
-\label{tab:stochastic-parameters}
+\caption{Au centre, les paramètres utilisés dans les différentes bifurcation et la série temporelle non stochastique. A droite, les paramètres utilisés dans la série temporelle stochastique}
+\label{tab:parameters}
 \end{table}
