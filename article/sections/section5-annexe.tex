@@ -3,7 +3,7 @@ Soit l'EDO à 1 paramètre
 \begin{equation}
   \dot{x}(t) = a_1x^3 + a_2x + \phi \equiv f_{\phi}(x), \quad a_1, a_2 \in \R
 \end{equation}
-On peut la voir comme la somme d'une fonction cubique et d'une droite. En traçant les 2 graphes, on observe que nous avons plusieurs équilibres pour $a_1 < 0 < a_2$ ou $a_2 < 0 < a_1$. Il existe au moins un équilibre lorsque la droite et la fonction cubique s'intersectent.
+On peut la voir comme la somme d'une fonction cubique et d'une droite. En traçant les 2 graphes, on observe que l'on a plusieurs équilibres pour $a_1 < 0 < a_2$ ou $a_2 < 0 < a_1$. Il existe au moins un équilibre lorsque la droite et la fonction cubique s'intersectent.
 \begin{equation} \label{eq:intersection}
   f_{\phi_c}(x_0) = 0 \iff a_1 x_0^3 = - (a_2x_0 + \phi_c)
 \end{equation}
@@ -24,7 +24,7 @@ ce qui implique en injectant dans (\ref{eq:intersection}) que
     &= \pm \frac{4(-a_2)^{3/2}}{(27a_1)^{1/2}}
 \end{align*}
 
-On a donc trouvé l'intervalle critique où il y a création 3 équilibres.
+On a donc trouvé l'intervalle critique où il y a création de 3 équilibres.
 \begin{equation}
   |\phi_c| < \sqrt{\frac{-4(a_2)^3}{27a_1}}
 \end{equation}
@@ -81,7 +81,7 @@ Passons en coordonnées polaires $(r, \theta)$\footnote{On retrouve facilement l
     &= \frac{y(z + \gamma y - r^2 y) + z(-y + \gamma z - r^2 z)}{r} \\
     &= \frac{\gamma y^2 + \gamma z^2(y^2 + z^2)}{r} \\
     &= \frac{\gamma r^2 - r^4}{r} \\
-    &= \gamma r - r^3 \equiv f_r(\gamma)
+    &= \gamma r - r^3
 \end{align*}
 \begin{align*}
   \dot{\theta} = \frac{\dot{z}y - z\dot{y}}{r^2}
@@ -89,7 +89,7 @@ Passons en coordonnées polaires $(r, \theta)$\footnote{On retrouve facilement l
     &= \frac{- y^2 - z^2}{r^2} \\
     &= -1
 \end{align*}
-L'EDO est $\dot{\theta}$ est facilement résolvable par séparation des variables. On trouve $\theta = -t + \theta_0$. L'analyse graphique de l'équation pour $\dot{r}$ nous renseigne sur la nature des équilibres de cette dernière.
+L'EDO en $\dot{\theta}$ est facilement résolvable par séparation des variables. On trouve $\theta = -t + \theta_0$. L'analyse graphique de l'équation pour $\dot{r}$ nous renseigne sur la nature des équilibres de cette dernière.
 On trouve en effet aisément que cette EDO a des équilibres en $r = 0$ pour tout $\gamma \in \R$ et $r = \sqrt{\gamma}$ pour $\gamma \geq 0$.
 
 L'analyse graphique nous montre que,
@@ -116,7 +116,7 @@ Ci-dessous le portrait de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$.
   \label{fig:phase-plot}
 \end{figure}
 
-\section{Paramètre utilisés dans les simulations}
+\section{Paramètres utilisés dans les simulations}
 \begin{table}[H]
 \centering
 \begin{tabular}{lcc} \toprule
@@ -134,9 +134,9 @@ Ci-dessous le portrait de phase du système $(\ref{eq:hopf})$ pour $\gamma = 1$.
   $t$               & $[0, 500]$                      & $[0, 500]$ \\
   $\Delta t$        & $0.2$                           & $0.1$ \\
   $(x_0, y_0, z_0)$ & $(-0.5, 1, -1)$                 & $(-0.5, 1, -1)$ \\
-  $Moyenne$         & //                              & $0$ \\
-  $Variance$        & //                              & $0.1$ \\\hline
+  Moyenne           & //                              & $0$ \\
+  Variance          & //                              & $0.1$ \\\hline
 \end{tabular}
-\caption{Au centre, les paramètres utilisés dans les différentes bifurcation et la série temporelle non stochastique. A droite, les paramètres utilisés dans la série temporelle stochastique}
+\caption{Au centre, les paramètres utilisés dans les différentes bifurcations et la série temporelle non stochastique. A droite, les paramètres utilisés dans la série temporelle stochastique}
 \label{tab:parameters}
 \end{table}
