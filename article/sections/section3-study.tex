@@ -18,7 +18,7 @@ Alors que nous nous approchons de la valeur critique de la bifurcation que nous 
 
 \subsection{Bifurcation fold} \label{sec:fold}
 
-\begin{figure*}[H]
+\begin{figure*}[ht!]
   \centering
   \includegraphics{figures/bifurcations.pdf}
   \caption{(a) Système primaire vs forçage $\phi$. (b) Système secondaire vs couplage $\gamma$. (c) Système secondaire vs forçage $\phi$. Les lignes noires correspondent aux équilibres stables tandis que les lignes rouges en traits pointillés correspondent aux équilibres instables. Les lignes vertes en traits pointillés correspondent à un équilibre stable présentant un régime oscillatoire. Les points rouges sont les points de bascule de la bifurcation fold tandis que les points oranges sont les points de bascule de la bifurcation de hopf.}
@@ -95,7 +95,7 @@ Le système que nous étudions présente un mix de ces 2 bifurcations. L'équati
 
 Imaginons que l’on parte d’une valeur de $\phi < - \phi_c$. Si l’on augmente lentement le paramètre de forçage $\phi$ dans la branche basse du système primaire, une fois atteint une valeur $-\phi_c$, le système primaire entre dans son régime bistable où les solutions convergeront vers l’une des 2 branches stables du système dépendant de leurs conditions initiales. Une fois atteint $+\phi_c$, on quitte le régime bistable et toutes les solutions convergerons vers la branche stable supérieure. Une fois passé $\phi_c$, la valeur de $x$ augmente de manière conséquente comparé à son augmentation négligeable lorsque $+\phi$ se situe dans l’intervalle $]-\infty, +\phi_c[$ ce qui a pour conséquence d’augmenter significativement le paramètre de couplage $\gamma(x)$ présent dans le système secondaire. Le système génère alors par cascade un cycle limite caractérisant des solutions oscillantes où toutes les solutions convergent vers ce cycle peu importe leurs conditions initiales.
 
-\begin{figure*}[H]
+\begin{figure*}[t]
   \centering
   \includegraphics{figures/time-series.pdf}
   \caption{(a) Série temporelle sans bruit. (b) Série temporelle bruitée contenant un ensemble de 100 simulations avec un terme stochastique. Dans cette dernière, les lignes correspondent aux moyennes des différents états du systèmes correspondants tandis que les zones de faible opacités correspondent aux écarts-types $[\mu - \sigma, \mu + \sigma]$ des états correspondants. La ligne noire correspond au système primaire. Les lignes jaunes et rouges correspondent au système secondaire. La ligne verte est la valeur du paramètre de forçage $\phi$ et la ligne bleue est la valeur du paramètre de couplage $\gamma(x)$.}
